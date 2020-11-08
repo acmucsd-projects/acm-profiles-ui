@@ -3,6 +3,8 @@
     display: flex;
     flex-direction: row;
     background-color: rgb(240, 240, 240);
+    background-image: url("https://backgroundlabs.com/wp-content/uploads/2013/06/seamless-pattern-of-circuit-board-grey.png");
+    background-repeat: repeat;
     width: 100vw;
     min-height: 100vh;
     max-height: 100vh;

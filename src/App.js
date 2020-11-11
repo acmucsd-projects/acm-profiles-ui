@@ -1,5 +1,5 @@
 import React from "react"
-import { Switch, Route } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import CommunityProfilePage from "./pages/community-profile-page"
 import LogInPage from "./pages/log-in-page"
 import Navbar from "./components/navbar"
@@ -10,22 +10,26 @@ import "./App.css"
 function App() {
   return (
     <div>
-      <Navbar />
-
-      <Switch>
-        <Route path="/user">
-          <UserProfilePage />
-        </Route>
-        <Route path="/search">
-          <SearchPage />
-        </Route>
-        <Route path="/community">
-          <CommunityProfilePage />
-        </Route>
-        <Route path="/">
-          <LogInPage />
-        </Route>
-      </Switch>
+      <Router>
+        <Switch>
+          <Route path="/user">
+            <Navbar />
+            <UserProfilePage />
+          </Route>
+          <Route path="/search">
+            <Navbar />
+            <SearchPage />
+          </Route>
+          <Route path="/community">
+            <Navbar />
+            <CommunityProfilePage />
+          </Route>
+          {/* TODO: conditional routing if user is authenticated */}
+          <Route path="/">
+            <LogInPage />
+          </Route>
+        </Switch>
+      </Router>
     </div>
   )
 }

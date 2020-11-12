@@ -18,14 +18,8 @@ function LogInForm() {
         Log In
       </Title>
       <Form name="normal_login" onFinish={onFinish} layout="vertical">
-        <Form.Item
-          name="email"
-          rules={[{ required: true, message: "Please input your Email!" }]}
-        >
-          <Input
-            prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="Email"
-          />
+        <Form.Item name="email" rules={[{ required: true, message: "Please input your Email!" }]}>
+          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
         </Form.Item>
         <Form.Item
           name="password"
@@ -46,11 +40,7 @@ function LogInForm() {
           </a>
         </Form.Item>
         <Form.Item>
-          <Button
-            type="primary"
-            htmlType="submit"
-            className="login-form-button"
-          >
+          <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
           <br /> Or <a href="register">register now!</a>

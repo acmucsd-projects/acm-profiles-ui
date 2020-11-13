@@ -1,18 +1,16 @@
 import React from "react"
 import "./App.css"
-
-import CommunityProfilePage from './pages/community-profile-page';
-import SearchPage from './pages/search-page.js';
-import UserProfilePage from './pages/user-profile-page.js';
-import LogInPage from './pages/log-in-page.js';
-
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { NavigationBar } from './components/Navbar.js';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import CommunityProfilePage from "./pages/community-profile-page"
+import SearchPage from "./pages/search-page"
+import UserProfilePage from "./pages/user-profile-page"
+import LogInPage from "./pages/log-in-page"
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import { NavigationBar } from "./components/Navbar.js"
 
 function App() {
   return (
-    <React.Fragment>
+    <Fragment>
       <Router>
         <NavigationBar />
         <Switch>
@@ -22,8 +20,8 @@ function App() {
           <Route path="/login" component={LogInPage} />
         </Switch>
       </Router>
-    </React.Fragment>
-  );
+    </Fragment>
+  )
 }
 
 export default App

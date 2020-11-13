@@ -1,0 +1,32 @@
+.user-card-container {
+    display: flex;
+    flex-direction: row;
+    height: 100px;
+    width: 550px;
+    padding: 10px;
+    margin: 10px;
+    border: 1px solid red;
+  }
+  .user-image-container {
+    margin: 0 10px 0 10px;
+    width: 80px;
+    border: 1px solid green;
+  }
+  .user-name-container {
+    margin: 0 10px 0 10px;
+    border: 1px solid blue;
+    display: flex;
+    padding: 20px;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .user-details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    border: 1px solid purple;
+  }
+  .user-detail-text {
+  }
+  

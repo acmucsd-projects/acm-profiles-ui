@@ -1,11 +1,11 @@
 import React from "react"
-import "./UserCard.css"
 import { Typography } from "antd"
 import PropTypes from "prop-types"
 import "antd/dist/antd.css"
+import "./UserCard.css"
 // eslint-disable-next-line import/no-extraneous-dependencies
 
-const { Title } = Typography
+const { Title, Text } = Typography
 function UserCard(props) {
   // Required props: userImage, firstName, lastName, major, graduationYear
   // eslint-disable-next-line no-unused-vars
@@ -14,11 +14,20 @@ function UserCard(props) {
 
   return (
     <div className="user-card-container">
-      <Title level={4}>
-        {firstName} {lastName}
-      </Title>
-      <Title level={4}>{major}</Title>
-      <Title level={4}>{graduationYear}</Title>
+      <div className="user-image-container">
+        <p>a</p>
+      </div>
+      <div className="user-name-container">
+        <Title level={4}>
+          {firstName} {lastName}
+        </Title>
+      </div>
+      <div className="user-details-container">
+        <Text className="user-detail-text">{major}</Text>
+        <Text className="user-detail-text" level={4}>
+          Class of {graduationYear}
+        </Text>
+      </div>
     </div>
   )
 }

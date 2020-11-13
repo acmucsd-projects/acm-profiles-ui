@@ -2,7 +2,7 @@ import React from 'react';
 
 const NavigationBar = () =>{
     return (
-        <div>
+        <div className='navigationbar'>
 
         </div>
     );

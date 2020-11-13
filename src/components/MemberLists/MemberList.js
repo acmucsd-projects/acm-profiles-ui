@@ -1,8 +1,8 @@
 import React from 'react';
-import Member from '.Member';
-import '../style.css';
+import Member from './Member';
+import './style.css';
 
-// not really sure how to implement member list here could use some help
+// container for a list of members, used in CommunityProfile and UserProfile
 const MemberList = (props) => {
     return (
         <div className='memberlist'>

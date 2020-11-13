@@ -3,14 +3,14 @@ import { Nav, Navbar } from "react-bootstrap"
 import styled from "styled-components"
 
 const Styles = styled.div`
-  .navbar { 
+  .navbar {
     background-color: #ffffff;
-    box-shadow: 0 3.5px 2px -2px rgba(·0,·0,·0.2); 
+    box-shadow: 0 3.5px 2px -2px rgba( 0, 0, 0.2); 
   }
 
   a,
-    .navbar-nav,
-     .navbar-light .nav-link {
+  .navbar-nav,
+  .navbar-light .nav-link {
     color: #333333;
     &:hover {
       color: #62b0ff;
@@ -40,7 +40,7 @@ export const NavigationBar = () => (
           </Nav.Item>
           <Nav.Item>
             <Nav.Link href="/my-profile">My Profile</Nav.Link>
-          </Nav.Item> 
+          </Nav.Item>
           <Nav.Item>
             <Nav.Link href="/login">Sign Out</Nav.Link>
           </Nav.Item>

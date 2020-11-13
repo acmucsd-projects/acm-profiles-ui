@@ -1,4 +1,5 @@
-import { React, Fragment } from "react"
+import React from "react"
+import { Fragment } from "react"
 import "./App.css"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import CommunityProfilePage from "./pages/community-profile-page"

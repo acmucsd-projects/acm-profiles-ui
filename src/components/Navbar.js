@@ -1,5 +1,5 @@
 import React from "react"
-import { Nav, Navbar} from "react-bootstrap"
+import { Nav, Navbar } from "react-bootstrap"
 import styled from "styled-components"
 
 const Styles = styled.div`
@@ -19,7 +19,9 @@ const Styles = styled.div`
   .navbar-brand {
     font-size: 1.4em;
     color: #333333;
-    &:hover { color: ⏎······color:·#62b0ff;⏎··· }
+    &:hover {
+      color: #62b0ff;
+    }
   }
 `
 

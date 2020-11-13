@@ -14,13 +14,17 @@
     box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.5);
   }
   .user-image-container {
-    margin: 0 10px 0 10px;
+    margin: 0 0 0 10px;
     width: 80px;
+  }
+  .user-card-profile-image {
+    height: 80px;
+    border-radius: 50%;
   }
   .user-name-container {
     margin: 0 10px 0 10px;
     display: flex;
-    padding: 20px;
+    padding: 10px;
     justify-content: flex-start;
     align-items: center;
   }
@@ -29,7 +33,5 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-  }
-  .user-detail-text {
   }
   

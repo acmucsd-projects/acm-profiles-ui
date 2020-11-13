@@ -15,7 +15,11 @@ function UserCard(props) {
   return (
     <div className="user-card-container">
       <div className="user-image-container">
-        <p>a</p>
+        <img
+          className="user-card-profile-image"
+          src="https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024"
+          alt="user"
+        />
       </div>
       <div className="user-name-container">
         <Title level={4}>
@@ -23,8 +27,8 @@ function UserCard(props) {
         </Title>
       </div>
       <div className="user-details-container">
-        <Text className="user-detail-text">{major}</Text>
-        <Text className="user-detail-text">Class of {graduationYear}</Text>
+        <Text>{major}</Text>
+        <Text>Class of {graduationYear}</Text>
       </div>
     </div>
   )

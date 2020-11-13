@@ -24,9 +24,7 @@ function UserCard(props) {
       </div>
       <div className="user-details-container">
         <Text className="user-detail-text">{major}</Text>
-        <Text className="user-detail-text" level={4}>
-          Class of {graduationYear}
-        </Text>
+        <Text className="user-detail-text">Class of {graduationYear}</Text>
       </div>
     </div>
   )

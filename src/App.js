@@ -10,7 +10,7 @@ import { NavigationBar } from "./components/Navbar.js"
 
 function App() {
   return (
-    <Fragment>
+    <React.Fragment>
       <Router>
         <NavigationBar />
         <Switch>
@@ -20,7 +20,7 @@ function App() {
           <Route path="/login" component={LogInPage} />
         </Switch>
       </Router>
-    </Fragment>
+    </React.Fragment>
   )
 }
 

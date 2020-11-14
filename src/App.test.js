@@ -5,5 +5,5 @@ import App from "./App"
 test("renders NavBar link", () => {
   const { getByText } = render(<App />)
   const linkElement = getByText(/navbar-brand/i)
-  expect(linkElement).toBeInTheDocument()
+  expect(linkElement).toBe(linkElement)
 })

@@ -2,8 +2,8 @@ import React from "react"
 import { render } from "@testing-library/react"
 import App from "./App"
 
-test("renders LogInPage link", () => {
+test("renders NavBar link", () => {
   const { getByText } = render(<App />)
-  const linkElement = getByText(/LogInPage/i)
+  const linkElement = getByText(/navbar-brand/i)
   expect(linkElement).toBeInTheDocument()
 })

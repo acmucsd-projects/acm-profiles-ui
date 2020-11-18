@@ -10,7 +10,7 @@ function UserCard(props) {
   // Required props: userImage, firstName, lastName, major, graduationYear
   // eslint-disable-next-line no-unused-vars
   // include userImage once you figure out the type of the import
-  const { firstName, lastName, major, graduationYear } = props
+  const { firstName, lastName, major, graduationYear, college } = props
 
   return (
     <div className="user-card-container">
@@ -28,6 +28,7 @@ function UserCard(props) {
       </div>
       <div className="user-details-container">
         <Text>{major}</Text>
+        <Text>{college} College</Text>
         <Text>Class of {graduationYear}</Text>
       </div>
     </div>
@@ -38,6 +39,7 @@ UserCard.propTypes = {
   lastName: PropTypes.string.isRequired,
   major: PropTypes.string.isRequired,
   graduationYear: PropTypes.number.isRequired,
+  college: PropTypes.string.isRequired,
 }
 
 export default UserCard

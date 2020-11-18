@@ -1,12 +1,8 @@
-import React from 'react';
-import './style.css';
+import React from "react"
+import "./style.css"
 
-const Member = (props) => {
-    return (
-        <div className='member'>
-            
-        </div>
-    );
+const Member = () => {
+  return <div className='member'><div /></div>
 }
 
-export default Member;
+export default Member

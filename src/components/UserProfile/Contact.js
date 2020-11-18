@@ -1,13 +1,9 @@
-import React from 'react';
-import ContactList from './ContactList';
-import './style.css';
+import React from "react"
+import ContactList from "./ContactList"
+import "./style.css"
 
-const Contact = (props) => {
-    return (
-        <div className='contact'>
-
-        </div>
-    );
+const Contact = () => {
+  return <div className="contact"><div /></div>
 }
 
-export default Contact;
+export default Contact

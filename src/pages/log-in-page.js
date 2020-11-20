@@ -52,7 +52,7 @@ function LogInForm() {
 
 function LogInPage() {
   return (
-    <div className="body">
+    <div className="log-in-body">
       <div className="spacer15vw" />
       <LogInForm />
     </div>

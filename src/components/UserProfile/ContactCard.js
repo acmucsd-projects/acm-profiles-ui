@@ -30,14 +30,18 @@ function ContactCard(props) {
 
   return (
     <div className="contact-card-container">
-      <div className="contact-image-container">
-        <img className="contact-card-type-image" src={imageUrl} alt="" />
-      </div>
-      <div className="contact-title-container">
-        <Title level={3}>{typeText}</Title>
+      <div className="contact-service-container">
+        <div className="contact-image-container">
+          <img className="contact-card-type-image" src={imageUrl} alt="" />
+        </div>
+        <div className="contact-title-container">
+          <Title level={3}>{typeText}</Title>
+        </div>
       </div>
       <div className="contact-subtitle-container">
-        <Title level={4}>{name}</Title>
+        <Title className="contact-name" level={4}>
+          {name}
+        </Title>
       </div>
     </div>
   )

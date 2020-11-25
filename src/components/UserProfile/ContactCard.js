@@ -39,7 +39,7 @@ function ContactCard(props) {
         </div>
       </div>
       <div className="contact-subtitle-container">
-        <Title className="contact-name" level={4}>
+        <Title className="contact-name" level={4} style={{ color: "dimgray" }}>
           {name}
         </Title>
       </div>

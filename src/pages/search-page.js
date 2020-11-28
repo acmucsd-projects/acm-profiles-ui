@@ -2,6 +2,7 @@ import React from "react"
 import "./search-page.css"
 import { Typography, Input, Select, Button } from "antd"
 import "antd/dist/antd.css"
+import UserCard from "../components/Search/UserCard"
 
 const { Title } = Typography
 const { Option } = Select
@@ -56,6 +57,29 @@ class SearchPage extends React.Component {
                 </Button>
               }
               onSearch={this.handleSearch}
+            />
+          </div>
+          <div className="search-results-container">
+            <UserCard
+              firstName="Patrick"
+              lastName="Brown"
+              major="Computer Science"
+              graduationYear={2023}
+              college="Sixth"
+            />
+            <UserCard
+              firstName="Patrick"
+              lastName="Brown"
+              major="Computer Science"
+              graduationYear={2023}
+              college="Sixth"
+            />
+            <UserCard
+              firstName="Patrick"
+              lastName="Brown"
+              major="Computer Science"
+              graduationYear={2023}
+              college="Sixth"
             />
           </div>
         </div>

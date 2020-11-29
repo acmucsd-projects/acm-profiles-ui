@@ -18,14 +18,14 @@ class MemberList extends Component {
     const { members } = this.state
     const membersArr = []
 
-    Object.entries(members).forEach(([key, value]) => {
+    Object.entries(members).forEach((arr) => {
       membersArr.push(
         <Member
-          firstName={value[0]}
-          lastName={value[1]}
-          major={value[2]}
-          graduationYear={value[3]}
-          college={value[4]}
+          firstName={arr[1][0]}
+          lastName={arr[1][1]}
+          major={arr[1][2]}
+          graduationYear={arr[1][3]}
+          college={arr[1][4]}
         />
       )
     })

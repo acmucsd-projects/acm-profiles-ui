@@ -1,1 +1,21 @@
-/* CSS for navigation bar, lines the top of all pages except for Login */
+.navigationbar{
+    width: 100%;
+    height: 10vh;
+    padding: 10 10px 0 10px;
+    border-bottom: solid 1px rgba(240, 240, 240, 1);
+}
+
+.navigation-button{
+    float: right;
+    height: 10vh;
+    padding: 15px;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid 1px rgba(240, 240, 240, 1);
+    transition: backround-color 0.3s;
+}
+.navigation-button:hover {
+    background-color: rgb(250, 250, 250)
+}

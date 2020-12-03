@@ -33,6 +33,31 @@ class SearchPage extends React.Component {
 
   render() {
     const { searchType } = this.state
+
+    // image is also a part of this, need to add
+    const searchResults = [
+      {
+        uuid: 123456,
+        firstName: "Patrick",
+        lastName: "Brown",
+        major: "Computer Science",
+        graduationYear: 2023,
+        college: "Sixth",
+        profileImageURL:
+          "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
+      },
+      {
+        uuid: 654321,
+        firstName: "John",
+        lastName: "Smith",
+        major: "Computer Engineering",
+        graduationYear: 2022,
+        college: "Warren",
+        profileImageURL:
+          "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
+      },
+    ]
+
     return (
       <div className="background">
         <div className="page-body">
@@ -60,27 +85,16 @@ class SearchPage extends React.Component {
             />
           </div>
           <div className="search-results-container">
-            <UserCard
-              firstName="Patrick"
-              lastName="Brown"
-              major="Computer Science"
-              graduationYear={2023}
-              college="Sixth"
-            />
-            <UserCard
-              firstName="Patrick"
-              lastName="Brown"
-              major="Computer Science"
-              graduationYear={2023}
-              college="Sixth"
-            />
-            <UserCard
-              firstName="Patrick"
-              lastName="Brown"
-              major="Computer Science"
-              graduationYear={2023}
-              college="Sixth"
-            />
+            {searchResults.map((user) => (
+              <UserCard
+                firstName={user.firstName}
+                lastName={user.lastName}
+                major={user.major}
+                graduationYear={user.graduationYear}
+                college={user.college}
+                profileImageURL={user.profileImageURL}
+              />
+            ))}
           </div>
         </div>
       </div>

@@ -4,7 +4,7 @@ import { Typography, Input, Select, Button } from "antd"
 import "antd/dist/antd.css"
 import UserCard from "../components/Search/UserCard"
 
-const { Title } = Typography
+const { Title, Text } = Typography
 const { Option } = Select
 const { Search } = Input
 
@@ -13,6 +13,8 @@ class SearchPage extends React.Component {
     super(props)
     this.state = {
       searchType: "user",
+      searchResults: null,
+      noResults: false,
     }
     this.handleSelectChange = this.handleSelectChange.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
@@ -28,36 +30,40 @@ class SearchPage extends React.Component {
       const { searchType } = this.state
       // eslint-disable-next-line no-alert
       alert(`Searching for ${searchQuery} in ${searchType}`)
+
+      // pull search results from api
+      // if results are empty, set noResults to true
+      const currentSearchResults = [
+        {
+          uuid: 123456,
+          firstName: "Patrick",
+          lastName: "Brown",
+          major: "Computer Science",
+          graduationYear: 2023,
+          college: "Sixth",
+          profileImageURL:
+            "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
+        },
+        {
+          uuid: 654321,
+          firstName: "John",
+          lastName: "Smith",
+          major: "Computer Engineering",
+          graduationYear: 2022,
+          college: "Warren",
+          profileImageURL:
+            "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
+        },
+      ]
+      this.setState({
+        searchResults: currentSearchResults,
+        noResults: currentSearchResults.length === 0,
+      })
     }
   }
 
   render() {
-    const { searchType } = this.state
-
-    // image is also a part of this, need to add
-    const searchResults = [
-      {
-        uuid: 123456,
-        firstName: "Patrick",
-        lastName: "Brown",
-        major: "Computer Science",
-        graduationYear: 2023,
-        college: "Sixth",
-        profileImageURL:
-          "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-      },
-      {
-        uuid: 654321,
-        firstName: "John",
-        lastName: "Smith",
-        major: "Computer Engineering",
-        graduationYear: 2022,
-        college: "Warren",
-        profileImageURL:
-          "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-      },
-    ]
-
+    const { searchType, searchResults, noResults } = this.state
     return (
       <div className="background">
         <div className="page-body">
@@ -85,16 +91,20 @@ class SearchPage extends React.Component {
             />
           </div>
           <div className="search-results-container">
-            {searchResults.map((user) => (
-              <UserCard
-                firstName={user.firstName}
-                lastName={user.lastName}
-                major={user.major}
-                graduationYear={user.graduationYear}
-                college={user.college}
-                profileImageURL={user.profileImageURL}
-              />
-            ))}
+            {searchResults !== null && noResults === true && (
+              <Text>We couldn&apos;t find any results for your search, maybe you mistyped?</Text>
+            )}
+            {searchResults != null &&
+              searchResults.map((user) => (
+                <UserCard
+                  firstName={user.firstName}
+                  lastName={user.lastName}
+                  major={user.major}
+                  graduationYear={user.graduationYear}
+                  college={user.college}
+                  profileImageURL={user.profileImageURL}
+                />
+              ))}
           </div>
         </div>
       </div>

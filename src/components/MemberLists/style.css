@@ -1,1 +1,41 @@
 /* CSS for lisitng out members, used int CommunityProfile and UserProfile */
+.member-list-container {
+    padding: 10px 20px 10px 20px;
+}
+
+.member-list-members-container {
+    box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.1);
+    border: 5px outset rgba(161, 107, 255, 1);
+    border-style: dashed;
+    border-width: 2px; 
+    padding: 10px 10px 10px 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 100px;
+    min-width: 410px;
+    max-width: 600px;
+    margin: 10px;
+    border-radius: 3px;
+    transition: box-shadow 0.2s;
+}
+
+.left-div {
+    height: 80px;
+    border-radius: 50%;
+}
+
+.center-div {
+    margin: 0 10px 0 10px;
+    display: flex;
+    padding: 10px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.right-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}

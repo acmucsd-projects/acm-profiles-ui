@@ -1,30 +1,78 @@
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 // eslint-disable-next-line no-unused-vars
 import { Form, Input, Button, Checkbox, Typography, Modal } from "antd"
 import "antd/dist/antd.css"
 // eslint-disable-next-line import/no-extraneous-dependencies
+const { TextArea } = Input
 
-function handleCreate(setVisible) {
+function handleCreate(
+  setVisible,
+  communityName,
+  setCommunityName,
+  communityDescription,
+  setCommunityDescription,
+  form
+) {
+  // THIS IS WHERE WE CALL THE API AND CREATE THE NEW COMMUNITY
+  // eslint-disable-next-line no-console
+  console.log(
+    `Creating new community with name: ${communityName}, and description: ${communityDescription}`
+  )
+  // reset state variables
+  setCommunityName("")
+  setCommunityDescription("")
   setVisible(false)
+  form.resetFields()
 }
 
-function handleCancel(setVisible) {
+function handleCancel(setVisible, setCommunityName, setCommunityDescription, form) {
+  // reset state variables
+  setCommunityName("")
+  setCommunityDescription("")
   setVisible(false)
+  form.resetFields()
 }
 
 function CreateCommunityModal(props) {
+  const [communityName, setCommunityName] = useState("")
+  const [communityDescription, setCommunityDescription] = useState("")
   const { isVisible, setVisible } = props
+  const [form] = Form.useForm()
+
   return (
     <Modal
-      title="Basic Modal"
+      title="Make a Community"
       visible={isVisible}
-      onOk={() => handleCreate(setVisible)}
-      onCancel={() => handleCancel(setVisible)}
+      onOk={() =>
+        handleCreate(
+          setVisible,
+          communityName,
+          setCommunityName,
+          communityDescription,
+          setCommunityDescription,
+          form
+        )
+      }
+      onCancel={() => handleCancel(setVisible, setCommunityName, setCommunityDescription, form)}
     >
-      <p>Some contents...</p>
-      <p>Some contents...</p>
-      <p>Some contents...</p>
+      <Form name="create-community-form" onFinish={() => {}} layout="vertical" form={form}>
+        <Form.Item
+          name="community-name"
+          rules={[{ required: true, message: "Every community needs a name!" }]}
+        >
+          <Input
+            placeholder="Community Name"
+            onChange={({ target: { value } }) => setCommunityName(value)}
+          />
+        </Form.Item>
+        <Form.Item name="community-description" rules={[{ required: false }]}>
+          <TextArea
+            placeholder="Description"
+            onChange={({ target: { value } }) => setCommunityDescription(value)}
+          />
+        </Form.Item>
+      </Form>
     </Modal>
   )
 }
@@ -34,59 +82,3 @@ CreateCommunityModal.propTypes = {
 }
 
 export default CreateCommunityModal
-/*
-<Modal
-    title="Basic Modal"
-    visible={showCreateCommunityModal}
-    onOk={this.handleSuccessCreateCommunityModal}
-    onCancel={this.handleCancelCreateCommunityModal}
->
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-</Modal>
-*/
-/*
-function LogInForm() {
-  const onFinish = (values) => {
-    // eslint-disable-next-line no-console
-    console.log("Received values of form: ", values)
-  }
-  return (
-    <div className="log-in-panel">
-      <Title size={2} style={{ paddingBottom: "20px" }}>
-        Log In
-      </Title>
-      <Form name="normal_login" onFinish={onFinish} layout="vertical">
-        <Form.Item name="email" rules={[{ required: true, message: "Please input your Email!" }]}>
-          <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
-        </Form.Item>
-        <Form.Item
-          name="password"
-          rules={[{ required: true, message: "Please input your Password!" }]}
-        >
-          <Input
-            prefix={<LockOutlined className="site-form-item-icon" />}
-            type="password"
-            placeholder="Password"
-          />
-        </Form.Item>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-          <a className="login-form-forgot" href="forgot">
-            Forgot password
-          </a>
-        </Form.Item>
-        <Form.Item>
-          <Button type="primary" htmlType="submit" className="login-form-button">
-            Log in
-          </Button>
-          <br /> Or <a href="register">register now!</a>
-        </Form.Item>
-      </Form>
-    </div>
-  )
-}
-*/

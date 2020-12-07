@@ -23,7 +23,6 @@
 .left-div {
     height: 80px;
     border-radius: 50%;
-    float: left;
 }
 
 .center-div {
@@ -32,7 +31,6 @@
     padding: 10px;
     justify-content: flex-start;
     align-items: center;
-    float: left;
 }
 
 .right-div {
@@ -40,5 +38,4 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    float: left;
 }

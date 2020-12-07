@@ -3,6 +3,7 @@ import "./search-page.css"
 import { Typography, Input, Select, Button } from "antd"
 import "antd/dist/antd.css"
 import UserCard from "../components/Search/UserCard"
+import CreateCommunityModal from "../components/Search/CreateCommunityModal"
 
 const { Title, Text } = Typography
 const { Option } = Select
@@ -15,9 +16,15 @@ class SearchPage extends React.Component {
       searchType: "user",
       searchResults: null,
       noResults: false,
+      showCreateCommunityModal: false,
     }
     this.handleSelectChange = this.handleSelectChange.bind(this)
+    this.setVisible = this.setVisible.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
+  }
+
+  setVisible(v) {
+    this.setState({ showCreateCommunityModal: v })
   }
 
   handleSelectChange(value) {
@@ -33,28 +40,30 @@ class SearchPage extends React.Component {
 
       // pull search results from api
       // if results are empty, set noResults to true
-      const currentSearchResults = [
-        {
-          uuid: 123456,
-          firstName: "Patrick",
-          lastName: "Brown",
-          major: "Computer Science",
-          graduationYear: 2023,
-          college: "Sixth",
-          profileImageURL:
-            "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-        },
-        {
-          uuid: 654321,
-          firstName: "John",
-          lastName: "Smith",
-          major: "Computer Engineering",
-          graduationYear: 2022,
-          college: "Warren",
-          profileImageURL:
-            "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-        },
-      ]
+      // This is a set of two temporary search results to display what the user card looks like
+      // const currentSearchResults = [
+      //   {
+      //     uuid: 123456,
+      //     firstName: "Patrick",
+      //     lastName: "Brown",
+      //     major: "Computer Science",
+      //     graduationYear: 2023,
+      //     college: "Sixth",
+      //     profileImageURL:
+      //       "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
+      //   },
+      //   {
+      //     uuid: 654321,
+      //     firstName: "John",
+      //     lastName: "Smith",
+      //     major: "Computer Engineering",
+      //     graduationYear: 2022,
+      //     college: "Warren",
+      //     profileImageURL:
+      //       "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
+      //   },
+      // ]
+      const currentSearchResults = []
       this.setState({
         searchResults: currentSearchResults,
         noResults: currentSearchResults.length === 0,
@@ -63,7 +72,7 @@ class SearchPage extends React.Component {
   }
 
   render() {
-    const { searchType, searchResults, noResults } = this.state
+    const { searchType, searchResults, noResults, showCreateCommunityModal } = this.state
     return (
       <div className="background">
         <div className="page-body">
@@ -94,6 +103,16 @@ class SearchPage extends React.Component {
             {searchResults !== null && noResults === true && (
               <Text>We couldn&apos;t find any results for your search, maybe you mistyped?</Text>
             )}
+            {searchResults !== null && noResults === true && searchType === "community" && (
+              <div>
+                <br />
+                <Text> Or, </Text>
+                <Button type="link" onClick={() => this.setVisible(true)}>
+                  Create a community
+                </Button>
+                <Text> if it doesn&apos;t exist! </Text>
+              </div>
+            )}
             {searchResults != null &&
               searchResults.map((user) => (
                 <UserCard
@@ -107,6 +126,7 @@ class SearchPage extends React.Component {
               ))}
           </div>
         </div>
+        <CreateCommunityModal isVisible={showCreateCommunityModal} setVisible={this.setVisible} />
       </div>
     )
   }

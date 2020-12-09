@@ -32,7 +32,7 @@ function App() {
             <CommunityProfilePage />
           </Route>
           <Route path="/login">
-            <LogInPage />
+            {authenticated ? <Redirect to={`/user/${userId}`} /> : <LogInPage />}
           </Route>
           <Route path="/">
             {authenticated ? <Redirect to={`/user/${userId}`} /> : <Redirect to="/login" />}

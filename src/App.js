@@ -1,5 +1,5 @@
 import React from "react"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import CommunityProfilePage from "./pages/community-profile-page"
 import LogInPage from "./pages/log-in-page"
 import NavigationBar from "./components/NavBar/NavBar"
@@ -8,11 +8,17 @@ import UserProfilePage from "./pages/user-profile-page"
 import "./App.css"
 
 function App() {
+  /* TODO: handle authentication properly for redirect */
+  const authenticated = true
+  const userId = 123456
+  /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+
   return (
     <div>
       <Router>
         <Switch>
-          <Route path="/user">
+          <Redirect exact from="/user" to={`/user/${userId}`} />
+          <Route path="/user/:id">
             <NavigationBar />
             <UserProfilePage />
           </Route>
@@ -20,13 +26,16 @@ function App() {
             <NavigationBar />
             <SearchPage />
           </Route>
-          <Route path="/community">
+          <Redirect exact from="/community" to="/search" />
+          <Route path="/community/:id">
             <NavigationBar />
             <CommunityProfilePage />
           </Route>
-          {/* TODO: conditional routing if user is authenticated */}
-          <Route path="/">
+          <Route path="/login">
             <LogInPage />
+          </Route>
+          <Route path="/">
+            {authenticated ? <Redirect to={`/user/${userId}`} /> : <Redirect to="/login" />}
           </Route>
         </Switch>
       </Router>

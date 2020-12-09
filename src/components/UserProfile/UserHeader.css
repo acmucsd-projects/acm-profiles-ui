@@ -32,9 +32,9 @@
 
 .user-info-name-container {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: center;
 }
 
 .user-info-button-container {

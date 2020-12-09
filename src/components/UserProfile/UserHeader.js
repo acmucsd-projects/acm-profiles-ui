@@ -62,8 +62,10 @@ class UserHeader extends Component {
         <div className="user-info-container">
           <div className="user-info-title-container">
             <div className="user-info-name-container">
-              <Title level={2}>{name}</Title>
-              <Title level={3}>
+              <Title style={{ margin: 0 }} level={2}>
+                {name}
+              </Title>
+              <Title style={{ margin: 0 }} level={3}>
                 {year} Year - {major}
               </Title>
             </div>

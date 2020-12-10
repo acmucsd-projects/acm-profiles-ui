@@ -24,7 +24,7 @@ function App() {
               <Redirect to="/login" />
             ) : (
               <>
-                <NavigationBar />
+                <NavigationBar setAuthenticated={setAuthenticated} setUserId={setUserId} />
                 <UserProfilePage />
               </>
             )}
@@ -34,7 +34,7 @@ function App() {
               <Redirect to="/login" />
             ) : (
               <>
-                <NavigationBar />
+                <NavigationBar setAuthenticated={setAuthenticated} setUserId={setUserId} />
                 <SearchPage />
               </>
             )}
@@ -45,7 +45,7 @@ function App() {
               <Redirect to="/login" />
             ) : (
               <>
-                <NavigationBar />
+                <NavigationBar setAuthenticated={setAuthenticated} setUserId={setUserId} />
                 <CommunityProfilePage />
               </>
             )}

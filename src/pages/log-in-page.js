@@ -50,11 +50,22 @@ function LogInForm() {
   )
 }
 
-function LogInPage() {
+function LogInPage(props) {
+  // THIS IS TEMPORARY, REMOVE ONCE USER AUTHENTICATION IS SET UP
+  const authenticate = () => {
+    // eslint-disable-next-line react/prop-types
+    props.setAuthenticated(true)
+    // eslint-disable-next-line react/prop-types
+    props.setUserId(123456)
+  }
   return (
     <div className="log-in-body">
       <div className="spacer15vw" />
       <LogInForm />
+      {
+        // This will automatically authenticate the client with userId=123456
+      }
+      <Button onClick={() => authenticate()}>Automatically Authenticate</Button>
     </div>
   )
 }

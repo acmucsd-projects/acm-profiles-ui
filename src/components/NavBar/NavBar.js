@@ -6,7 +6,14 @@ import ACMLogo from "../../images/acm-logo.png"
 
 const { Title } = Typography
 
-const NavigationBar = () => {
+const NavigationBar = (props) => {
+  const deauthenticate = () => {
+    // eslint-disable-next-line react/prop-types
+    props.setAuthenticated(false)
+    // eslint-disable-next-line react/prop-types
+    props.setUserId(-1)
+  }
+
   return (
     <div className="navigationbar">
       <nav>
@@ -18,17 +25,14 @@ const NavigationBar = () => {
             </Title>
           </div>
         </div>
-        <Link to="/" className="navigation-button">
-          Log In Page
+        <Link to="/" className="navigation-button" onClick={() => deauthenticate()}>
+          Sign Out
         </Link>
-        <Link to="/community" className="navigation-button">
-          Community Page
+        <Link to="/user" className="navigation-button">
+          My Profile
         </Link>
         <Link to="/search" className="navigation-button">
           Search Page
-        </Link>
-        <Link to="/user" className="navigation-button">
-          User Page
         </Link>
       </nav>
     </div>

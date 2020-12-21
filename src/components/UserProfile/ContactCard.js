@@ -44,16 +44,26 @@ function ContactCard(props) {
         </div>
       </div>
       <div className="right-hand-div">
-        <Title
-          className="contact-name"
-          level={4}
-          style={{ color: "dimgray" }}
-          editable={{
-            onChange: change,
-          }}
-        >
-          {name}
-        </Title>
+        {editable && (
+          <Title
+            className="contact-name"
+            level={4}
+            style={{ color: "dimgray" }}
+            editable={{
+              editable,
+              tooltip: "click to edit",
+              onChange: change,
+            }}
+          >
+            {name}
+          </Title>
+        )}
+        {!editable && (
+          <Title className="contact-name" level={4} style={{ color: "dimgray" }}>
+            {name}
+          </Title>
+        )}
+
         {editable && (
           <div className="control-button-container">
             <Button shape="circle" icon={<DeleteOutlined />} onClick={handleDeleteSocial} />

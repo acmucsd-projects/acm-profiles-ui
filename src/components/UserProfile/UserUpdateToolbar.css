@@ -1,0 +1,23 @@
+.toolbar-container{
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    bottom:2%;
+    width: 70%;
+    height: 5vh;
+    background-color: rgb(50, 50, 50);
+}
+.text-color {
+    color: rgb(250, 250, 250);
+    font-size: 15px;
+    font-weight: 700;
+    padding-left: 20px;
+    padding-top: 7px;
+}
+.done-button{
+    margin-right: 20px;
+    padding-top: 4px;
+    font-size: 15px;
+    font-weight: 700;
+}

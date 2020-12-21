@@ -1,3 +1,6 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable prefer-destructuring */
 /* eslint-disable react/no-unused-prop-types */
 import React, { useState } from "react"
 import PropTypes from "prop-types"
@@ -12,7 +15,7 @@ function ContactList(props) {
     facebook: "Mark Zuckerberg",
     instagram: "Mark Zuckerborg",
   })
-  const editable = { props }
+  const editing = props.editing
 
   const updateSocial = (key, newSocial) => {
     // eslint-disable-next-line prefer-template
@@ -34,7 +37,7 @@ function ContactList(props) {
         key={key}
         type={key}
         name={value}
-        editable={editable}
+        editable={editing}
         updateSocial={(k, s) => updateSocial(k, s)}
         deleteSocial={(k) => deleteSocial(k)}
       />
@@ -42,14 +45,14 @@ function ContactList(props) {
   })
   return (
     <div className="contact-list-container">
-      {editable ? (
+      <div className="contact-list-contacts-container">{contactsArr}</div>
+      {editing && (
         <div className="contact-list-edit-button-container">
           <Button className="contact-list-edit-button" type="primary">
             Add Contact
           </Button>
         </div>
-      ) : null}
-      <div className="contact-list-contacts-container">{contactsArr}</div>
+      )}
     </div>
   )
 }

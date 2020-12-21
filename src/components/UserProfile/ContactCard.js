@@ -1,13 +1,13 @@
 import React from "react"
 import PropTypes from "prop-types"
-import { Typography } from "antd"
+import { Typography, Button } from "antd"
 import "./ContactCard.css"
+import { DeleteOutlined } from "@ant-design/icons"
 
 const { Title } = Typography
-
 function ContactCard(props) {
   // Required props: type, name
-  const { type, name } = props
+  const { type, name, editable, updateSocial, deleteSocial } = props
   const typeText = `${type.charAt(0).toUpperCase() + type.slice(1)}:`
   let imageUrl = null
 
@@ -27,7 +27,12 @@ function ContactCard(props) {
     default:
       break
   }
-
+  const handleDeleteSocial = () => {
+    deleteSocial(type)
+  }
+  const change = (s) => {
+    updateSocial(type, s)
+  }
   return (
     <div className="contact-card-container">
       <div className="contact-service-container">
@@ -38,10 +43,22 @@ function ContactCard(props) {
           <Title level={3}>{typeText}</Title>
         </div>
       </div>
-      <div className="contact-subtitle-container">
-        <Title className="contact-name" level={4} style={{ color: "dimgray" }}>
+      <div className="right-hand-div">
+        <Title
+          className="contact-name"
+          level={4}
+          style={{ color: "dimgray" }}
+          editable={{
+            onChange: change,
+          }}
+        >
           {name}
         </Title>
+        {editable && (
+          <div className="control-button-container">
+            <Button shape="circle" icon={<DeleteOutlined />} onClick={handleDeleteSocial} />
+          </div>
+        )}
       </div>
     </div>
   )
@@ -50,6 +67,9 @@ function ContactCard(props) {
 ContactCard.propTypes = {
   type: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  editable: PropTypes.bool.isRequired,
+  updateSocial: PropTypes.func.isRequired,
+  deleteSocial: PropTypes.func.isRequired,
 }
 
 export default ContactCard

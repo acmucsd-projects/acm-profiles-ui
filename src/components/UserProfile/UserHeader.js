@@ -37,19 +37,19 @@ class UserHeader extends Component {
 
     if (editable)
       buttons.push(
-        <Button className="user-button" size="large">
+        <Button key="edit-profile-key" className="user-button" size="large">
           Edit Profile
         </Button>
       )
     else if (followable)
       buttons.push(
-        <Button className="user-button" type="primary" size="large">
+        <Button key="follow-profile-key" className="user-button" type="primary" size="large">
           + Follow
         </Button>
       )
     else
       buttons.push(
-        <Button className="user-button" size="large">
+        <Button key="unfollow-profile-key" className="user-button" size="large">
           - Unfollow
         </Button>
       )

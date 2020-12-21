@@ -1,47 +1,57 @@
-import React, { Component } from "react"
+/* eslint-disable react/no-unused-prop-types */
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Button } from "antd"
 import ContactCard from "./ContactCard"
 import "./ContactList.css"
 
-class ContactList extends Component {
+function ContactList(props) {
   // Required props: contacts (currently placeholder), editable
-  constructor(props) {
-    super(props)
+  const [contacts, setContacts] = useState({
+    discord: "TheLegend27",
+    facebook: "Mark Zuckerberg",
+    instagram: "Mark Zuckerborg",
+  })
+  const editable = { props }
 
-    this.state = {
-      /* vvv placeholder information vvv */
-      contacts: {
-        discord: "TheLegend27",
-        facebook: "Mark Zuckerberg",
-        instagram: "Mark Zuckerborg",
-      },
-      /* ^^^ placeholder information ^^^ */
-      editable: props.editable,
-    }
+  const updateSocial = (key, newSocial) => {
+    // eslint-disable-next-line prefer-template
+    console.log("updating social: " + key + " to " + newSocial)
+    setContacts({ ...contacts, [key]: newSocial })
   }
-
-  render() {
-    const { contacts, editable } = this.state /* TODO: pass contacts through props */
-    const contactsArr = []
-
-    Object.entries(contacts).forEach(([key, value]) => {
-      contactsArr.push(<ContactCard type={key} name={value} />)
-    })
-
-    return (
-      <div className="contact-list-container">
-        {editable ? (
-          <div className="contact-list-edit-button-container">
-            <Button className="contact-list-edit-button" type="primary">
-              Add Contact
-            </Button>
-          </div>
-        ) : null}
-        <div className="contact-list-contacts-container">{contactsArr}</div>
-      </div>
+  const deleteSocial = (key) => {
+    // eslint-disable-next-line prefer-template
+    console.log("deleting social: " + key)
+    const updatedArr = {}
+    Object.assign(updatedArr, contacts)
+    delete updatedArr[key]
+    setContacts(updatedArr)
+  }
+  const contactsArr = []
+  Object.entries(contacts).forEach(([key, value]) => {
+    contactsArr.push(
+      <ContactCard
+        key={key}
+        type={key}
+        name={value}
+        editable={editable}
+        updateSocial={(k, s) => updateSocial(k, s)}
+        deleteSocial={(k) => deleteSocial(k)}
+      />
     )
-  }
+  })
+  return (
+    <div className="contact-list-container">
+      {editable ? (
+        <div className="contact-list-edit-button-container">
+          <Button className="contact-list-edit-button" type="primary">
+            Add Contact
+          </Button>
+        </div>
+      ) : null}
+      <div className="contact-list-contacts-container">{contactsArr}</div>
+    </div>
+  )
 }
 
 ContactList.propTypes = {

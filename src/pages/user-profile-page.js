@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import React, { useState } from "react"
 import { Tabs, Divider } from "antd"
 import "./user-profile-page.css"
@@ -50,6 +51,7 @@ function UserProfilePage() {
           editing={editing}
           updateEditing={setEditing}
           followable={false}
+          setUser={setUser}
         />
 
         <Divider />

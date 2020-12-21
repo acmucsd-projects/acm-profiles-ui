@@ -13,6 +13,7 @@ function UserHeader(props) {
   const editing = props.editing
   const updateEditing = props.updateEditing
   const user = props.user
+  const setUser = props.setUser
   const myProfile = props.myProfile
   const followable = props.followable
 
@@ -40,7 +41,12 @@ function UserHeader(props) {
         - Unfollow
       </Button>
     )
-
+  const handleDescriptionChange = (newDescription) => {
+    const tempUser = {}
+    Object.assign(tempUser, user)
+    tempUser.description = newDescription
+    setUser(tempUser)
+  }
   return (
     <div className="user-header-container">
       <div className="user-image-container">
@@ -58,7 +64,14 @@ function UserHeader(props) {
           </div>
           <div className="user-info-button-container">{buttons}</div>
         </div>
-        <Text>{user.description}</Text>
+        {editing && (
+          <Text
+            editable={{ autoSize: { minRows: 5, maxRows: 5 }, onChange: handleDescriptionChange }}
+          >
+            {user.description}
+          </Text>
+        )}
+        {!editing && <Text>{user.description}</Text>}
       </div>
     </div>
   )
@@ -71,6 +84,7 @@ UserHeader.propTypes = {
   myProfile: PropTypes.bool.isRequired,
   // eslint-disable-next-line react/forbid-prop-types
   user: PropTypes.object.isRequired,
+  setUser: PropTypes.func.isRequired,
 }
 
 export default UserHeader

@@ -20,12 +20,12 @@
     justify-content: center;
     align-items: center;
     min-width: 60vw;
-    max-width: 60vw;
+    max-width: 610px;
 }
 .my-centered-tab-wrapper .ant-tabs-nav {
     display: flex !important;
     max-width: 60vw !important;
-    min-width: 60vw !important;
+    min-width: 610px !important;
 }
 .my-centered-tab-wrapper .ant-tabs-nav-list {
     display: flex !important;

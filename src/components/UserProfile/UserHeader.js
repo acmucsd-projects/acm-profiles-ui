@@ -4,7 +4,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { Typography, Button } from "antd"
+import { Typography, Button, Tooltip } from "antd"
 import "./UserHeader.css"
 
 const { Title, Text } = Typography
@@ -50,17 +50,40 @@ function UserHeader(props) {
   return (
     <div className="user-header-container">
       <div className="user-image-container">
-        <img className="user-image" src={user.image} alt="user" />
+        {editing ? (
+          <Tooltip title="Edit this on the portal">
+            <img className="user-image" src={user.image} alt="user" />
+          </Tooltip>
+        ) : (
+          <img className="user-image" src={user.image} alt="user" />
+        )}
       </div>
       <div className="user-info-container">
         <div className="user-info-title-container">
           <div className="user-info-name-container">
-            <Title style={{ margin: 0 }} level={2}>
-              {user.name}
-            </Title>
-            <Title style={{ margin: 0 }} level={3}>
-              {user.year} Year - {user.major}
-            </Title>
+            {editing ? (
+              <span>
+                <Tooltip title="Edit this on the portal">
+                  <Title style={{ margin: 0 }} level={2}>
+                    {user.name}
+                  </Title>
+                </Tooltip>
+                <Tooltip title="Edit this on the portal">
+                  <Title style={{ margin: 0 }} level={3}>
+                    {user.year} Year - {user.major}
+                  </Title>
+                </Tooltip>
+              </span>
+            ) : (
+              <span>
+                <Title style={{ margin: 0 }} level={2}>
+                  {user.name}
+                </Title>
+                <Title style={{ margin: 0 }} level={3}>
+                  {user.year} Year - {user.major}
+                </Title>
+              </span>
+            )}
           </div>
           <div className="user-info-button-container">{buttons}</div>
         </div>

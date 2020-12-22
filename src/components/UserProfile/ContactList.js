@@ -3,7 +3,7 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable react/no-unused-prop-types */
-import React, { useState } from "react"
+import React from "react"
 import PropTypes from "prop-types"
 import { Button } from "antd"
 import ContactCard from "./ContactCard"
@@ -11,12 +11,10 @@ import "./ContactList.css"
 
 function ContactList(props) {
   // Required props: contacts (currently placeholder), editable
-  const [contacts, setContacts] = useState({
-    discord: "TheLegend27",
-    facebook: "Mark Zuckerberg",
-    instagram: "Mark Zuckerborg",
-  })
+
   const editing = props.editing
+  const contacts = props.contacts
+  const setContacts = props.setContacts
 
   const updateSocial = (key, newSocial) => {
     // eslint-disable-next-line prefer-template

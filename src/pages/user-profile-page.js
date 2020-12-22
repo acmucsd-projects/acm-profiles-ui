@@ -27,6 +27,12 @@ function UserProfilePage() {
     description:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   })
+  const [contacts, setContacts] = useState({
+    discord: "TheLegend27",
+    facebook: "Mark Zuckerberg",
+    instagram: "Mark Zuckerborg",
+  })
+
   const finishEditing = () => {
     setEditing(false)
     // push the new user object to API
@@ -34,7 +40,7 @@ function UserProfilePage() {
   const UserProfileTabs = () => (
     <Tabs size="large" defaultActiveKey="1" onChange={callback}>
       <TabPane tab="Contacts" key="contact">
-        <ContactList editing={editing} />
+        <ContactList editing={editing} contacts={contacts} setContacts={setContacts} />
       </TabPane>
       <TabPane tab="Groups" key="groups">
         Groups Pane

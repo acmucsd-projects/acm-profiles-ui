@@ -44,7 +44,9 @@ function ContactList(props) {
   })
   return (
     <div className="contact-list-container">
-      <div className="contact-list-contacts-container">{contactsArr}</div>
+      <div className="contact-list-contacts-container">
+        {contactsArr.length ? contactsArr : <ContactCard key="empty-contact" />}
+      </div>
       {editing && (
         <div className="contact-list-edit-button-container">
           <Button className="contact-list-edit-button" type="primary">

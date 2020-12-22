@@ -8,7 +8,7 @@ const { Title } = Typography
 function ContactCard(props) {
   // Required props: type, name
   const { type, name, editable, updateSocial, deleteSocial } = props
-  const typeText = `${type.charAt(0).toUpperCase() + type.slice(1)}:`
+  const typeText = type ? `${type.charAt(0).toUpperCase() + type.slice(1)}:` : "No Contacts"
   let imageUrl = null
 
   switch (type) {
@@ -37,7 +37,7 @@ function ContactCard(props) {
     <div className="contact-card-container">
       <div className="contact-service-container">
         <div className="contact-image-container">
-          <img className="contact-card-type-image" src={imageUrl} alt="" />
+          {imageUrl ? <img className="contact-card-type-image" src={imageUrl} alt="" /> : null}
         </div>
         <div className="contact-title-container">
           <Title level={3}>{typeText}</Title>

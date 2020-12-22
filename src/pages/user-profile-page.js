@@ -6,6 +6,7 @@ import "antd/dist/antd.css"
 import UserHeader from "../components/UserProfile/UserHeader"
 import ContactList from "../components/UserProfile/ContactList"
 import UserUpdateToolbar from "../components/UserProfile/UserUpdateToolbar"
+import UserList from "../components/UserProfile/UserList"
 
 const { TabPane } = Tabs
 
@@ -33,19 +34,79 @@ function UserProfilePage() {
     instagram: "Mark Zuckerborg",
   })
 
+  const followersList = [
+    {
+      uuid: 123456,
+      firstName: "Patrick",
+      lastName: "Brown",
+      major: "Computer Science",
+      graduationYear: 2023,
+      college: "Sixth",
+      profileImageURL:
+        "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
+    },
+    {
+      uuid: 654321,
+      firstName: "John",
+      lastName: "Smith",
+      major: "Computer Engineering",
+      graduationYear: 2022,
+      college: "Warren",
+      profileImageURL:
+        "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
+    },
+  ]
+
+  const followingList = [
+    {
+      uuid: 232341,
+      firstName: "John",
+      lastName: "Doe",
+      major: "Computer Science",
+      graduationYear: 2023,
+      college: "Sixth",
+      profileImageURL:
+        "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
+    },
+    {
+      uuid: 129410,
+      firstName: "Joe",
+      lastName: "Smith",
+      major: "Biology",
+      graduationYear: 2024,
+      college: "Marshall",
+      profileImageURL:
+        "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
+    },
+  ]
+
   const finishEditing = () => {
     setEditing(false)
     // push the new user object to API
   }
   const UserProfileTabs = () => (
-    <Tabs size="large" defaultActiveKey="1" onChange={callback}>
-      <TabPane tab="Contacts" key="contact">
-        <ContactList editing={editing} contacts={contacts} setContacts={setContacts} />
-      </TabPane>
-      <TabPane tab="Groups" key="groups">
-        Groups Pane
-      </TabPane>
-    </Tabs>
+    <div className="my-centered-tab-wrapper">
+      <Tabs size="large" defaultActiveKey="1" onChange={callback}>
+        <TabPane tab="Contacts" key="contact">
+          <div className="tab-container">
+            <ContactList editing={editing} contacts={contacts} setContacts={setContacts} />
+          </div>
+        </TabPane>
+        <TabPane tab="Groups" key="groups">
+          <div className="tab-container">Groups Pane</div>
+        </TabPane>
+        <TabPane tab="Followers" key="followers">
+          <div className="tab-container">
+            <UserList userList={followersList} />
+          </div>
+        </TabPane>
+        <TabPane tab="Following" key="following">
+          <div className="tab-container">
+            <UserList userList={followingList} />
+          </div>
+        </TabPane>
+      </Tabs>
+    </div>
   )
 
   return (

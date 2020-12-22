@@ -92,9 +92,6 @@ function UserProfilePage() {
             <ContactList editing={editing} contacts={contacts} setContacts={setContacts} />
           </div>
         </TabPane>
-        <TabPane tab="Groups" key="groups">
-          <div className="tab-container">Groups Pane</div>
-        </TabPane>
         <TabPane tab="Followers" key="followers">
           <div className="tab-container">
             <UserList userList={followersList} />

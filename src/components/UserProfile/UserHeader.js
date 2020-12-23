@@ -1,86 +1,113 @@
-import React, { Component } from "react"
+/* eslint-disable prefer-destructuring */
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react"
 import PropTypes from "prop-types"
-import { Typography, Button } from "antd"
+import { Typography, Button, Tooltip } from "antd"
 import "./UserHeader.css"
 
 const { Title, Text } = Typography
 
-class UserHeader extends Component {
-  // Required props: user (currently placeholder), editable, joinable
-  constructor(props) {
-    super(props)
-    this.state = {
-      /* vvv placeholder information vvv */
-      user: {
-        image:
-          "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-        name: "John Doe",
-        major: "Computer Science",
-        year: "2nd",
-        description:
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-      },
-      /* ^^^ placeholder information ^^^ */
-      editable: props.editable,
-      followable: props.followable,
-    }
-  }
+function UserHeader(props) {
+  const editing = props.editing
+  const updateEditing = props.updateEditing
+  const user = props.user
+  const setUser = props.setUser
+  const myProfile = props.myProfile
+  const followable = props.followable
 
-  render() {
-    const {
-      user: { image, name, major, year, description },
-      editable,
-      followable,
-    } = this.state
-
-    const buttons = []
-
-    if (editable)
-      buttons.push(
-        <Button className="user-button" size="large">
-          Edit Profile
-        </Button>
-      )
-    else if (followable)
-      buttons.push(
-        <Button className="user-button" type="primary" size="large">
-          + Follow
-        </Button>
-      )
-    else
-      buttons.push(
-        <Button className="user-button" size="large">
-          - Unfollow
-        </Button>
-      )
-
-    return (
-      <div className="user-header-container">
-        <div className="user-image-container">
-          <img className="user-image" src={image} alt="user" />
-        </div>
-        <div className="user-info-container">
-          <div className="user-info-title-container">
-            <div className="user-info-name-container">
-              <Title style={{ margin: 0 }} level={2}>
-                {name}
-              </Title>
-              <Title style={{ margin: 0 }} level={3}>
-                {year} Year - {major}
-              </Title>
-            </div>
-            <div className="user-info-button-container">{buttons}</div>
-          </div>
-          <Text>{description}</Text>
-        </div>
-      </div>
+  const buttons = []
+  if (myProfile && !editing)
+    buttons.push(
+      <Button
+        key="edit-profile-key"
+        className="user-button"
+        size="large"
+        onClick={() => updateEditing(true)}
+      >
+        Edit Profile
+      </Button>
     )
+  else if (!myProfile && followable)
+    buttons.push(
+      <Button key="follow-profile-key" className="user-button" type="primary" size="large">
+        + Follow
+      </Button>
+    )
+  else if (!myProfile && !followable)
+    buttons.push(
+      <Button key="unfollow-profile-key" className="user-button" size="large">
+        - Unfollow
+      </Button>
+    )
+  const handleDescriptionChange = (newDescription) => {
+    const tempUser = {}
+    Object.assign(tempUser, user)
+    tempUser.description = newDescription
+    setUser(tempUser)
   }
+  return (
+    <div className="user-header-container">
+      <div className="user-image-container">
+        {editing ? (
+          <Tooltip title="Edit this on the portal">
+            <img className="user-image" src={user.image} alt="user" />
+          </Tooltip>
+        ) : (
+          <img className="user-image" src={user.image} alt="user" />
+        )}
+      </div>
+      <div className="user-info-container">
+        <div className="user-info-title-container">
+          <div className="user-info-name-container">
+            {editing ? (
+              <span>
+                <Tooltip title="Edit this on the portal">
+                  <Title style={{ margin: 0 }} level={2}>
+                    {user.name}
+                  </Title>
+                </Tooltip>
+                <Tooltip title="Edit this on the portal">
+                  <Title style={{ margin: 0 }} level={3}>
+                    {user.year} Year - {user.major}
+                  </Title>
+                </Tooltip>
+              </span>
+            ) : (
+              <span>
+                <Title style={{ margin: 0 }} level={2}>
+                  {user.name}
+                </Title>
+                <Title style={{ margin: 0 }} level={3}>
+                  {user.year} Year - {user.major}
+                </Title>
+              </span>
+            )}
+          </div>
+          <div className="user-info-button-container">{buttons}</div>
+        </div>
+        {editing && (
+          <Text
+            editable={{ autoSize: { minRows: 5, maxRows: 5 }, onChange: handleDescriptionChange }}
+          >
+            {user.description}
+          </Text>
+        )}
+        {!editing && <Text>{user.description}</Text>}
+      </div>
+    </div>
+  )
 }
 
 UserHeader.propTypes = {
-  editable: PropTypes.bool.isRequired,
+  editing: PropTypes.bool.isRequired,
   followable: PropTypes.bool.isRequired,
+  updateEditing: PropTypes.func.isRequired,
+  myProfile: PropTypes.bool.isRequired,
+  // eslint-disable-next-line react/forbid-prop-types
+  user: PropTypes.object.isRequired,
+  setUser: PropTypes.func.isRequired,
 }
 
 export default UserHeader

@@ -9,7 +9,7 @@ class MemberList extends Component {
 
     this.state = {
       members: {
-        member1: ["John", "Doe", "Undecided", "2020", "Marshall"],
+        member1: ["John", "Doe", "Computer Science", "2020", "Marshall"],
       },
     }
   }

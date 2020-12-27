@@ -2,8 +2,8 @@ import React from "react"
 import "./search-page.css"
 import { Typography, Input, Select, Button } from "antd"
 import "antd/dist/antd.css"
-import UserCard from "../components/Search/UserCard"
-import CreateCommunityModal from "../components/Search/CreateCommunityModal"
+import UserCard from "../components/UserList/UserCard"
+import CreateCommunityModal from "../components/UI/CreateCommunityModal"
 
 const { Title, Text } = Typography
 const { Option } = Select

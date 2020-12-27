@@ -5,7 +5,7 @@ import "./community-profile-page.css"
 import CommunityHeader from "../components/CommunityHeader/CommunityHeader"
 import ContactList from "../components/ContactList/ContactList"
 import UserList from "../components/UserList/UserList"
-import UserUpdateToolbar from "../components/UI/UserUpdateToolbar"
+import UpdateToolbar from "../components/UI/UpdateToolbar"
 import ChangeImageModal from "../components/UI/ChangeImageModal"
 
 const { TabPane } = Tabs
@@ -111,7 +111,7 @@ function CommunityProfilePage() {
         <Divider />
         <CommunityProfileTabs />
       </div>
-      {editing && <UserUpdateToolbar finishEditing={finishEditing} />}
+      {editing && <UpdateToolbar finishEditing={finishEditing} />}
       <ChangeImageModal isVisible={showImageModal} setVisible={setImageModal} />
     </div>
   )

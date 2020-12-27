@@ -3,9 +3,9 @@
 /* eslint-disable prefer-destructuring */
 import React from "react"
 import { Button } from "antd"
-import "./UserUpdateToolbar.css"
+import "./UpdateToolbar.css"
 
-function UserUpdateToolbar(props) {
+function UpdateToolbar(props) {
   const finishEditing = props.finishEditing
   return (
     <div className="toolbar-container">
@@ -16,4 +16,4 @@ function UserUpdateToolbar(props) {
     </div>
   )
 }
-export default UserUpdateToolbar
+export default UpdateToolbar

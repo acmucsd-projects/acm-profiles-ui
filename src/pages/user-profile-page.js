@@ -5,7 +5,7 @@ import "./user-profile-page.css"
 import "antd/dist/antd.css"
 import UserHeader from "../components/UserHeader/UserHeader"
 import ContactList from "../components/ContactList/ContactList"
-import UserUpdateToolbar from "../components/UI/UserUpdateToolbar"
+import UpdateToolbar from "../components/UI/UpdateToolbar"
 import UserList from "../components/UserList/UserList"
 
 const { TabPane } = Tabs
@@ -121,7 +121,7 @@ function UserProfilePage() {
         <Divider />
         <UserProfileTabs />
       </div>
-      {editing && <UserUpdateToolbar finishEditing={finishEditing} />}
+      {editing && <UpdateToolbar finishEditing={finishEditing} />}
     </div>
   )
 }

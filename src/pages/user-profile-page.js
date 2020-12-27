@@ -8,39 +8,30 @@ import UserHeader from "../components/UserProfile/UserHeader"
 import ContactList from "../components/UserProfile/ContactList"
 import UserUpdateToolbar from "../components/UserProfile/UserUpdateToolbar"
 import UserList from "../components/UserProfile/UserList"
-import { getUserAxios, getUUID } from "../url-wrappers"
+import { getUserAxios, getUUID, patchUserProfile } from "../url-wrappers"
 
 const { TabPane } = Tabs
 
-// const { Title } = Typography
-
 function UserProfilePage() {
   const { id } = useParams()
-  // call getUser
   const isMyProfile = id === getUUID()
 
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(false)
 
-  /* const [user, setUser] = useState({
-    image:
-      "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-    name: "John Doe",
-    major: "Computer Science",
-    year: "2nd",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  }) */
   const [user, setUser] = useState({})
+  const [databaseStateUser, setDatabaseStateUser] = useState({})
   const [contacts, setContacts] = useState({})
 
   const [followersList, setFollowersList] = useState([])
   const [followingList, setFollowingList] = useState([])
 
+  // THIS IS WHERE WE LOAD DATA FROM THE DATABASE
   useEffect(() => {
     async function fetchUserInfo() {
       // first fetch user profile information
       const userInfoResult = await getUserAxios(id, "/user/profile/")
+      setDatabaseStateUser(userInfoResult.data)
       setUser(userInfoResult.data)
       // then fetch user socials
       const userSocialResult = await getUserAxios(id, "/user/profile/socials/")
@@ -74,61 +65,34 @@ function UserProfilePage() {
     fetchUserInfo()
 
     setLoading(false)
-  }, [setUser, setLoading, setContacts, setFollowersList, setFollowingList, id])
+  }, [
+    setUser,
+    setLoading,
+    setContacts,
+    setFollowersList,
+    setFollowingList,
+    setDatabaseStateUser,
+    id,
+  ])
 
   // eslint-disable-next-line no-unused-vars
   console.log(user)
   console.log(followingList)
 
-  /* const followersList = [
-    {
-      uuid: 123456,
-      firstName: "Patrick",
-      lastName: "Brown",
-      major: "Computer Science",
-      graduationYear: 2023,
-      college: "Sixth",
-      profileImageURL:
-        "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-    },
-    {
-      uuid: 654321,
-      firstName: "John",
-      lastName: "Smith",
-      major: "Computer Engineering",
-      graduationYear: 2022,
-      college: "Warren",
-      profileImageURL:
-        "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-    },
-  ]
-
-  const followingList = [
-    {
-      uuid: 232341,
-      firstName: "John",
-      lastName: "Doe",
-      major: "Computer Science",
-      graduationYear: 2023,
-      college: "Sixth",
-      profileImageURL:
-        "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-    },
-    {
-      uuid: 129410,
-      firstName: "Joe",
-      lastName: "Smith",
-      major: "Biology",
-      graduationYear: 2024,
-      college: "Marshall",
-      profileImageURL:
-        "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-    },
-  ] */
-
   const finishEditing = () => {
     setEditing(false)
     // push the new user object to API
+    // figure out what is changed
+    const patchDifference = Object.keys(user).reduce((diff, key) => {
+      if (databaseStateUser[key] === user[key]) return diff
+      return {
+        ...diff,
+        [key]: user[key],
+      }
+    }, {})
+    console.log(patchDifference)
+    // eslint-disable-next-line eqeqeq
+    if (patchDifference != {}) patchUserProfile(patchDifference)
   }
   const UserProfileTabs = () => (
     <div className="my-centered-tab-wrapper">
@@ -163,7 +127,7 @@ function UserProfilePage() {
               <p> user not found </p>
             ) : (
               <>
-                <Link to="/16d9c560-fc43-4037-8690-9ca14de155d6" className="navigation-button">
+                <Link to="/user/16d9c560-fc43-4037-8690-9ca14de155d6" className="navigation-button">
                   go to another profile
                 </Link>
                 <UserHeader

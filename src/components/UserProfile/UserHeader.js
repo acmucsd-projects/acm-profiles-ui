@@ -49,10 +49,10 @@ function UserHeader(props) {
         - Unfollow
       </Button>
     )
-  const handleDescriptionChange = (newDescription) => {
+  const handleMajorChange = (newCollege) => {
     const tempUser = {}
     Object.assign(tempUser, user)
-    tempUser.description = newDescription
+    tempUser.college = newCollege
     setUser(tempUser)
   }
   return (
@@ -96,13 +96,19 @@ function UserHeader(props) {
           <div className="user-info-button-container">{buttons}</div>
         </div>
         {editing && (
-          <Text
-            editable={{ autoSize: { minRows: 5, maxRows: 5 }, onChange: handleDescriptionChange }}
-          >
-            {description}
+          <Text editable={{ autoSize: { minRows: 1, maxRows: 1 }, onChange: handleMajorChange }}>
+            {user.college !== null ? user.college : "No College"}
           </Text>
         )}
-        {!editing && <Text>{description}</Text>}
+
+        {!editing && <Text>{user.college !== null ? user.college : "No College"}</Text>}
+        {!editing ? (
+          <Text>{description}</Text>
+        ) : (
+          <Tooltip title="Edit this on the portal">
+            <Text>{description}</Text>
+          </Tooltip>
+        )}
       </div>
     </div>
   )

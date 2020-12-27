@@ -2,11 +2,11 @@ import React, { useState } from "react"
 import { Tabs, Divider } from "antd"
 import "antd/dist/antd.css"
 import "./community-profile-page.css"
-import CommunityHeader from "../components/CommunityProfile/CommunityHeader"
-import ContactList from "../components/UserProfile/ContactList"
-import UserList from "../components/UserProfile/UserList"
-import UserUpdateToolbar from "../components/UserProfile/UserUpdateToolbar"
-import ChangeImageModal from "../components/CommunityProfile/ChangeImageModal"
+import CommunityHeader from "../components/CommunityHeader/CommunityHeader"
+import ContactList from "../components/ContactList/ContactList"
+import UserList from "../components/UserList/UserList"
+import UserUpdateToolbar from "../components/UI/UserUpdateToolbar"
+import ChangeImageModal from "../components/UI/ChangeImageModal"
 
 const { TabPane } = Tabs
 

@@ -18,12 +18,10 @@ function ContactList(props) {
 
   const updateSocial = (key, newSocial) => {
     // eslint-disable-next-line prefer-template
-    console.log("updating social: " + key + " to " + newSocial)
     setContacts({ ...contacts, [key]: newSocial })
   }
   const deleteSocial = (key) => {
     // eslint-disable-next-line prefer-template
-    console.log("deleting social: " + key)
     const updatedArr = {}
     Object.assign(updatedArr, contacts)
     delete updatedArr[key]
@@ -31,16 +29,17 @@ function ContactList(props) {
   }
   const contactsArr = []
   Object.entries(contacts).forEach(([key, value]) => {
-    contactsArr.push(
-      <ContactCard
-        key={key}
-        type={key}
-        name={value}
-        editable={editing}
-        updateSocial={(k, s) => updateSocial(k, s)}
-        deleteSocial={(k) => deleteSocial(k)}
-      />
-    )
+    if (key !== "user")
+      contactsArr.push(
+        <ContactCard
+          key={key}
+          type={key}
+          name={value}
+          editable={editing}
+          updateSocial={(k, s) => updateSocial(k, s)}
+          deleteSocial={(k) => deleteSocial(k)}
+        />
+      )
   })
   return (
     <div className="contact-list-container">

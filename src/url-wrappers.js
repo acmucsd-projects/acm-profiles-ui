@@ -4,10 +4,10 @@ import axios from "axios"
 
 const apiUrl = "http://127.0.0.1:8000/api"
 
-export async function getUserProfile(token, uuid) {
+export async function getUserAxios(token, uuid, path) {
   return axios({
     method: "GET",
-    url: `${apiUrl}/user/profile/${uuid}`,
+    url: `${apiUrl}${path}${uuid}`,
     headers: {
       Authorization: `Bearer ${token}`,
     },

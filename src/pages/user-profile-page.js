@@ -8,7 +8,7 @@ import UserHeader from "../components/UserProfile/UserHeader"
 import ContactList from "../components/UserProfile/ContactList"
 import UserUpdateToolbar from "../components/UserProfile/UserUpdateToolbar"
 import UserList from "../components/UserProfile/UserList"
-import { getUserProfile } from "../url-wrappers"
+import { getUserAxios } from "../url-wrappers"
 
 const { TabPane } = Tabs
 
@@ -39,26 +39,33 @@ function UserProfilePage() {
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
   }) */
   const [user, setUser] = useState({})
+  const [contacts, setContacts] = useState({})
+
+  const [followersList, setFollowersList] = useState([])
+  const [followingList, setFollowingList] = useState([])
 
   useEffect(() => {
-    async function fetchUserProfile() {
-      const result = await getUserProfile(token, testUserId)
-
-      setUser(result.data)
-      setLoading(false)
+    async function fetchUserInfo() {
+      // first fetch user profile information
+      const userInfoResult = await getUserAxios(token, testUserId, "/user/profile/")
+      setUser(userInfoResult.data)
+      // then fetch user socials
+      const userSocialResult = await getUserAxios(token, testUserId, "/user/profile/socials/")
+      delete userInfoResult.data.user
+      setContacts(userSocialResult.data)
+      // then fetch followers and following
     }
-    fetchUserProfile()
+
+    fetchUserInfo()
+
+    setLoading(false)
   }, [setUser, setLoading])
 
   // eslint-disable-next-line no-unused-vars
   console.log(user)
-  const [contacts, setContacts] = useState({
-    discord: "TheLegend27",
-    facebook: "Mark Zuckerberg",
-    instagram: "Mark Zuckerborg",
-  })
+  console.log(contacts)
 
-  const followersList = [
+  /* const followersList = [
     {
       uuid: 123456,
       firstName: "Patrick",
@@ -102,7 +109,7 @@ function UserProfilePage() {
       profileImageURL:
         "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
     },
-  ]
+  ] */
 
   const finishEditing = () => {
     setEditing(false)

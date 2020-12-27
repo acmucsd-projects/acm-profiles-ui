@@ -5,8 +5,8 @@
 /* eslint-disable react/no-unused-prop-types */
 import React from "react"
 import PropTypes from "prop-types"
-import UserCard from "../Search/UserCard"
-import "./ContactList.css"
+import UserCard from "./UserCard"
+import "./UserList.css"
 
 function UserList(props) {
   // Required props: userList

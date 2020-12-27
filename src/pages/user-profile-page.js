@@ -4,10 +4,10 @@ import { Tabs, Divider } from "antd"
 import { useParams, Link } from "react-router-dom"
 import "./user-profile-page.css"
 import "antd/dist/antd.css"
-import UserHeader from "../components/UserProfile/UserHeader"
-import ContactList from "../components/UserProfile/ContactList"
-import UserUpdateToolbar from "../components/UserProfile/UserUpdateToolbar"
-import UserList from "../components/UserProfile/UserList"
+import UserHeader from "../components/UserHeader/UserHeader"
+import ContactList from "../components/ContactList/ContactList"
+import UpdateToolbar from "../components/UI/UpdateToolbar"
+import UserList from "../components/UserList/UserList"
 import { getUserAxios, getUUID, patchUserProfile, patchUserSocials } from "../url-wrappers"
 
 const { TabPane } = Tabs
@@ -157,7 +157,7 @@ function UserProfilePage() {
           </>
         )}
       </div>
-      {editing && <UserUpdateToolbar finishEditing={finishEditing} />}
+      {editing && <UpdateToolbar finishEditing={finishEditing} />}
     </div>
   )
 }

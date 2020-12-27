@@ -1,5 +1,5 @@
 import React from "react"
-import "./style.css"
+import "./Member.css"
 import PropTypes from "prop-types"
 import { Typography } from "antd"
 

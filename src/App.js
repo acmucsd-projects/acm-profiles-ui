@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import CommunityProfilePage from "./pages/community-profile-page"
 import LogInPage from "./pages/log-in-page"
-import NavigationBar from "./components/NavBar/NavBar"
+import NavBar from "./components/NavBar/NavBar"
 import SearchPage from "./pages/search-page"
 import UserProfilePage from "./pages/user-profile-page"
 import "./App.css"
@@ -27,7 +27,7 @@ function App() {
               <Redirect to="/login" />
             ) : (
               <>
-                <NavigationBar setAuthenticated={setAuthenticated} />
+                <NavBar setAuthenticated={setAuthenticated} />
                 <UserProfilePage />
               </>
             )}
@@ -37,7 +37,7 @@ function App() {
               <Redirect to="/login" />
             ) : (
               <>
-                <NavigationBar setAuthenticated={setAuthenticated} />
+                <NavBar setAuthenticated={setAuthenticated} />
                 <SearchPage />
               </>
             )}
@@ -48,7 +48,7 @@ function App() {
               <Redirect to="/login" />
             ) : (
               <>
-                <NavigationBar setAuthenticated={setAuthenticated} />
+                <NavBar setAuthenticated={setAuthenticated} />
                 <CommunityProfilePage />
               </>
             )}

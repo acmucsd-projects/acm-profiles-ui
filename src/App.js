@@ -9,7 +9,7 @@ import "./App.css"
 
 function App() {
   /* TODO: handle authentication properly for redirect */
-  const [authenticated, setAuthenticated] = useState(false)
+  const [authenticated, setAuthenticated] = useState(true)
   const [userId, setUserId] = useState(-1)
 
   /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */

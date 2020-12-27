@@ -17,6 +17,14 @@ function UserHeader(props) {
   const myProfile = props.myProfile
   const followable = props.followable
 
+  const name = `${user.first_name} ${user.last_name}`
+  const gradYear = user.grad_year
+  const description = user.bio
+  const major = user.major != null ? user.major : "Undecided"
+  const imagesrc =
+    user.profile_pic != null
+      ? user.profile_pic
+      : "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1200px-User_font_awesome.svg.png"
   const buttons = []
   if (myProfile && !editing)
     buttons.push(
@@ -52,10 +60,10 @@ function UserHeader(props) {
       <div className="user-image-container">
         {editing ? (
           <Tooltip title="Edit this on the portal">
-            <img className="user-image" src={user.image} alt="user" />
+            <img className="user-image" src={imagesrc} alt="user" />
           </Tooltip>
         ) : (
-          <img className="user-image" src={user.image} alt="user" />
+          <img className="user-image" src={imagesrc} alt="user" />
         )}
       </div>
       <div className="user-info-container">
@@ -65,22 +73,22 @@ function UserHeader(props) {
               <span>
                 <Tooltip title="Edit this on the portal">
                   <Title style={{ margin: 0 }} level={2}>
-                    {user.name}
+                    {name}
                   </Title>
                 </Tooltip>
                 <Tooltip title="Edit this on the portal">
                   <Title style={{ margin: 0 }} level={3}>
-                    {user.year} Year - {user.major}
+                    {gradYear} - {major}
                   </Title>
                 </Tooltip>
               </span>
             ) : (
               <span>
                 <Title style={{ margin: 0 }} level={2}>
-                  {user.name}
+                  {name}
                 </Title>
                 <Title style={{ margin: 0 }} level={3}>
-                  {user.year} Year - {user.major}
+                  {gradYear} - {major}
                 </Title>
               </span>
             )}
@@ -91,10 +99,10 @@ function UserHeader(props) {
           <Text
             editable={{ autoSize: { minRows: 5, maxRows: 5 }, onChange: handleDescriptionChange }}
           >
-            {user.description}
+            {description}
           </Text>
         )}
-        {!editing && <Text>{user.description}</Text>}
+        {!editing && <Text>{description}</Text>}
       </div>
     </div>
   )

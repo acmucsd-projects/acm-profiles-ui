@@ -24,11 +24,11 @@ function ContactList(props) {
     // eslint-disable-next-line prefer-template
     const updatedArr = {}
     Object.assign(updatedArr, contacts)
-    delete updatedArr[key]
+    updatedArr[key] = null
     setContacts(updatedArr)
   }
   const contactsArr = []
-  console.log(contacts)
+  // console.log(contacts)
   Object.entries(contacts).forEach(([key, value]) => {
     if (key !== "user" && value !== null)
       contactsArr.push(

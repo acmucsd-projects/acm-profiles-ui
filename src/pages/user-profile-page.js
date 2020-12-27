@@ -8,7 +8,7 @@ import UserHeader from "../components/UserProfile/UserHeader"
 import ContactList from "../components/UserProfile/ContactList"
 import UserUpdateToolbar from "../components/UserProfile/UserUpdateToolbar"
 import UserList from "../components/UserProfile/UserList"
-import { getUserAxios, getUUID, patchUserProfile } from "../url-wrappers"
+import { getUserAxios, getUUID, patchUserProfile, patchUserSocials } from "../url-wrappers"
 
 const { TabPane } = Tabs
 
@@ -22,6 +22,7 @@ function UserProfilePage() {
   const [user, setUser] = useState({})
   const [databaseStateUser, setDatabaseStateUser] = useState({})
   const [contacts, setContacts] = useState({})
+  const [contactsDatabaseState, setContactsDatabaseState] = useState({})
 
   const [followersList, setFollowersList] = useState([])
   const [followingList, setFollowingList] = useState([])
@@ -35,7 +36,7 @@ function UserProfilePage() {
       setUser(userInfoResult.data)
       // then fetch user socials
       const userSocialResult = await getUserAxios(id, "/user/profile/socials/")
-
+      setContactsDatabaseState(userSocialResult.data)
       setContacts(userSocialResult.data)
       // then fetch followers and following lists
       const userFollowers = await getUserAxios(id, "/user/follower_list/")
@@ -76,23 +77,34 @@ function UserProfilePage() {
   ])
 
   // eslint-disable-next-line no-unused-vars
-  console.log(user)
-  console.log(followingList)
+  // console.log(user)
+  // console.log(followingList)
 
   const finishEditing = () => {
     setEditing(false)
     // push the new user object to API
-    // figure out what is changed
-    const patchDifference = Object.keys(user).reduce((diff, key) => {
+    // remove unchanged properties
+    const patchUserDifference = Object.keys(user).reduce((diff, key) => {
       if (databaseStateUser[key] === user[key]) return diff
       return {
         ...diff,
         [key]: user[key],
       }
     }, {})
-    console.log(patchDifference)
+    // patch changed properties
     // eslint-disable-next-line eqeqeq
-    if (patchDifference != {}) patchUserProfile(patchDifference)
+    if (patchUserDifference != {}) patchUserProfile(patchUserDifference)
+
+    const patchSocialDifference = Object.keys(contacts).reduce((diff, key) => {
+      if (contactsDatabaseState[key] === contacts[key]) return diff
+      return {
+        ...diff,
+        [key]: user[key],
+      }
+    }, {})
+    console.log(patchSocialDifference)
+    // eslint-disable-next-line eqeqeq
+    if (patchUserSocials != {}) patchUserSocials(patchSocialDifference)
   }
   const UserProfileTabs = () => (
     <div className="my-centered-tab-wrapper">

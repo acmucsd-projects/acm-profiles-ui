@@ -1,6 +1,6 @@
 import React, { Component } from "react"
 import Member from "./Member"
-import "./style.css"
+import "./MemberList.css"
 
 // container for a list of members, used in CommunityProfile and UserProfile
 class MemberList extends Component {

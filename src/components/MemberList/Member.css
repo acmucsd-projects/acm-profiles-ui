@@ -1,0 +1,21 @@
+.member {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    padding: 10px;
+}
+
+.left-div img {
+    height: 50px;
+}
+
+.middle-div {
+    padding-top: 3%;
+}
+
+.right-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+}

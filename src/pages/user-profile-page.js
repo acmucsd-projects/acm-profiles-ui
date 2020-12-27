@@ -13,9 +13,6 @@ import { getUserAxios } from "../url-wrappers"
 const { TabPane } = Tabs
 
 // const { Title } = Typography
-function callback(key) {
-  console.log(key)
-}
 
 function UserProfilePage() {
   const { id } = useParams()
@@ -51,19 +48,45 @@ function UserProfilePage() {
       setUser(userInfoResult.data)
       // then fetch user socials
       const userSocialResult = await getUserAxios(token, testUserId, "/user/profile/socials/")
-      delete userInfoResult.data.user
+
       setContacts(userSocialResult.data)
-      // then fetch followers and following
+      // then fetch followers and following lists
+      const userFollowers = await getUserAxios(token, testUserId, "/user/follower_list/")
+      const userFollowing = await getUserAxios(token, testUserId, "/user/following_list/")
+      // then fetch user info for each follower and following
+
+      // note: the paths '/user/follower_list/uuid' and '/user/following_list/uuid' only
+      //       return the uuids of the followers/following, meaning we have to pull the
+      //       info for each of these users individually
+
+      const userFollowersList = []
+      userFollowers.data.forEach(async (follower) => {
+        const currentFollowerInfo = await getUserAxios(token, follower.follower, "/user/profile/")
+        userFollowersList.push(currentFollowerInfo.data)
+      })
+
+      const userFollowingList = []
+      userFollowing.data.forEach(async (following) => {
+        const currentFollowingInfo = await getUserAxios(
+          token,
+          following.following,
+          "/user/profile/"
+        )
+        userFollowingList.push(currentFollowingInfo.data)
+      })
+
+      setFollowersList(userFollowersList)
+      setFollowingList(userFollowingList)
     }
 
     fetchUserInfo()
 
     setLoading(false)
-  }, [setUser, setLoading])
+  }, [setUser, setLoading, setContacts, setFollowersList, setFollowingList])
 
   // eslint-disable-next-line no-unused-vars
   console.log(user)
-  console.log(contacts)
+  console.log(followingList)
 
   /* const followersList = [
     {
@@ -117,7 +140,7 @@ function UserProfilePage() {
   }
   const UserProfileTabs = () => (
     <div className="my-centered-tab-wrapper">
-      <Tabs size="large" defaultActiveKey="1" onChange={callback}>
+      <Tabs size="large" defaultActiveKey="1">
         <TabPane tab="Contacts" key="contact">
           <div className="tab-container">
             <ContactList editing={editing} contacts={contacts} setContacts={setContacts} />

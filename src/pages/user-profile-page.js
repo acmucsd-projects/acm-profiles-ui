@@ -1,14 +1,14 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from "react"
 import { Tabs, Divider } from "antd"
-import { useParams } from "react-router-dom"
+import { useParams, Link } from "react-router-dom"
 import "./user-profile-page.css"
 import "antd/dist/antd.css"
 import UserHeader from "../components/UserProfile/UserHeader"
 import ContactList from "../components/UserProfile/ContactList"
 import UserUpdateToolbar from "../components/UserProfile/UserUpdateToolbar"
 import UserList from "../components/UserProfile/UserList"
-import { getUserAxios } from "../url-wrappers"
+import { getUserAxios, getUUID } from "../url-wrappers"
 
 const { TabPane } = Tabs
 
@@ -16,12 +16,8 @@ const { TabPane } = Tabs
 
 function UserProfilePage() {
   const { id } = useParams()
-  const userId = "123456"
   // call getUser
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1dWlkIjoiZWFhNjU3MDYtNzdiZS00NGZmLWE5YTYtY2Y4YWI2MDY5NGIxIiwiYWRtaW4iOnRydWUsImlhdCI6MTYwOTAzNDgwNCwiZXhwIjoxNjEwMjQ0NDA0fQ.Wxse7GgaB8xPmKltAEuFKugTyuMxsev6OvUyRjTj3GI"
-  const testUserId = "16d9c560-fc43-4037-8690-9ca14de155d6"
-  const isMyProfile = id === userId
+  const isMyProfile = id === getUUID()
 
   const [loading, setLoading] = useState(true)
   const [editing, setEditing] = useState(false)
@@ -44,15 +40,15 @@ function UserProfilePage() {
   useEffect(() => {
     async function fetchUserInfo() {
       // first fetch user profile information
-      const userInfoResult = await getUserAxios(token, testUserId, "/user/profile/")
+      const userInfoResult = await getUserAxios(id, "/user/profile/")
       setUser(userInfoResult.data)
       // then fetch user socials
-      const userSocialResult = await getUserAxios(token, testUserId, "/user/profile/socials/")
+      const userSocialResult = await getUserAxios(id, "/user/profile/socials/")
 
       setContacts(userSocialResult.data)
       // then fetch followers and following lists
-      const userFollowers = await getUserAxios(token, testUserId, "/user/follower_list/")
-      const userFollowing = await getUserAxios(token, testUserId, "/user/following_list/")
+      const userFollowers = await getUserAxios(id, "/user/follower_list/")
+      const userFollowing = await getUserAxios(id, "/user/following_list/")
       // then fetch user info for each follower and following
 
       // note: the paths '/user/follower_list/uuid' and '/user/following_list/uuid' only
@@ -61,17 +57,13 @@ function UserProfilePage() {
 
       const userFollowersList = []
       userFollowers.data.forEach(async (follower) => {
-        const currentFollowerInfo = await getUserAxios(token, follower.follower, "/user/profile/")
+        const currentFollowerInfo = await getUserAxios(follower.follower, "/user/profile/")
         userFollowersList.push(currentFollowerInfo.data)
       })
 
       const userFollowingList = []
       userFollowing.data.forEach(async (following) => {
-        const currentFollowingInfo = await getUserAxios(
-          token,
-          following.following,
-          "/user/profile/"
-        )
+        const currentFollowingInfo = await getUserAxios(following.following, "/user/profile/")
         userFollowingList.push(currentFollowingInfo.data)
       })
 
@@ -82,7 +74,7 @@ function UserProfilePage() {
     fetchUserInfo()
 
     setLoading(false)
-  }, [setUser, setLoading, setContacts, setFollowersList, setFollowingList])
+  }, [setUser, setLoading, setContacts, setFollowersList, setFollowingList, id])
 
   // eslint-disable-next-line no-unused-vars
   console.log(user)
@@ -171,6 +163,9 @@ function UserProfilePage() {
               <p> user not found </p>
             ) : (
               <>
+                <Link to="/16d9c560-fc43-4037-8690-9ca14de155d6" className="navigation-button">
+                  go to another profile
+                </Link>
                 <UserHeader
                   user={user}
                   myProfile={isMyProfile}

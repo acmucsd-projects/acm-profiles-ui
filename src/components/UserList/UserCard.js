@@ -9,7 +9,6 @@ const { Title, Text } = Typography
 function UserCard(props) {
   // Required props: key, firstName, lastName, major, graduationYear, college, profileImageURL
   const { uuid, firstName, lastName, major, graduationYear, college, profileImageURL } = props
-  console.log(props)
   return (
     <Link to={`/user/${uuid}`}>
       <div className="user-card-container">

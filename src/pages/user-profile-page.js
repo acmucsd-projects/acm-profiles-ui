@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 /* eslint-disable no-console */
 import React, { useState, useEffect } from "react"
 import { Tabs, Divider } from "antd"
@@ -27,6 +28,8 @@ function UserProfilePage() {
   const [followersList, setFollowersList] = useState([])
   const [followingList, setFollowingList] = useState([])
 
+  const [followable, setFollowable] = useState(true)
+
   // THIS IS WHERE WE LOAD DATA FROM THE DATABASE
   useEffect(() => {
     async function fetchUserInfo() {
@@ -41,8 +44,15 @@ function UserProfilePage() {
       setContactsDatabaseState(tempobj)
       setContacts(userSocialResult.data)
       // then fetch followers and following lists
-      const userFollowers = await getUserAxios(id, "/user/follower_list/")
+      const userFollowers = await getUserAxios(id, "/user/follower_list/").then()
       const userFollowing = await getUserAxios(id, "/user/following_list/")
+      const currUUID = getUUID()
+      setFollowable(true)
+      await userFollowers.data.forEach((fo) => {
+        if (fo.follower === currUUID) {
+          setFollowable(false)
+        }
+      })
       // then fetch user info for each follower and following
 
       // note: the paths '/user/follower_list/uuid' and '/user/following_list/uuid' only
@@ -75,8 +85,9 @@ function UserProfilePage() {
     setFollowingList,
     setDatabaseStateUser,
     id,
+    setFollowable,
   ])
-
+  console.log(followable)
   // eslint-disable-next-line no-unused-vars
   // console.log(user)
   // console.log(followingList)
@@ -108,6 +119,7 @@ function UserProfilePage() {
     // eslint-disable-next-line eqeqeq
     if (patchUserSocials != {}) patchUserSocials(patchSocialDifference)
   }
+
   const UserProfileTabs = () => (
     <div className="my-centered-tab-wrapper">
       <Tabs size="large" defaultActiveKey="1">
@@ -149,7 +161,8 @@ function UserProfilePage() {
                   myProfile={isMyProfile}
                   editing={editing}
                   updateEditing={setEditing}
-                  followable={false}
+                  followable={followable}
+                  setFollowable={setFollowable}
                   setUser={setUser}
                 />
                 <Divider />

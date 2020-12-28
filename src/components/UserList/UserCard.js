@@ -30,7 +30,6 @@ function UserCard(props) {
   )
 }
 UserCard.propTypes = {
-  key: PropTypes.string.isRequired,
   uuid: PropTypes.string.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,

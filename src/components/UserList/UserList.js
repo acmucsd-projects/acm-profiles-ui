@@ -15,6 +15,7 @@ function UserList(props) {
   const userCardList = userList.map((user) => (
     <UserCard
       key={user.uuid}
+      uuid={user.uuid}
       firstName={user.firstName}
       lastName={user.lastName}
       major={user.major}

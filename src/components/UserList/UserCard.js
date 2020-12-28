@@ -8,10 +8,9 @@ import "./UserCard.css"
 const { Title, Text } = Typography
 function UserCard(props) {
   // Required props: key, firstName, lastName, major, graduationYear, college, profileImageURL
-  const { key, firstName, lastName, major, graduationYear, college, profileImageURL } = props
-
+  const { uuid, firstName, lastName, major, graduationYear, college, profileImageURL } = props
   return (
-    <Link to={`/user/${key}`}>
+    <Link to={`/user/${uuid}`}>
       <div className="user-card-container">
         <div className="user-image-container">
           <img className="user-card-profile-image" src={profileImageURL} alt="user" />
@@ -32,6 +31,7 @@ function UserCard(props) {
 }
 UserCard.propTypes = {
   key: PropTypes.string.isRequired,
+  uuid: PropTypes.string.isRequired,
   firstName: PropTypes.string.isRequired,
   lastName: PropTypes.string.isRequired,
   major: PropTypes.string.isRequired,

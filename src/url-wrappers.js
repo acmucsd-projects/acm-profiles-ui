@@ -7,6 +7,7 @@ let currentToken = ""
 let currentUUID = ""
 
 export async function getUserAxios(uuid, path) {
+  console.log(`Current token: ${currentToken}`)
   return axios({
     method: "GET",
     url: `${apiUrl}${path}${uuid}`,
@@ -84,6 +85,9 @@ export async function patchUserProfile(patchData) {
     method: "PATCH",
     url: `${apiUrl}/user/profile/${currentUUID}`,
     data: patchData,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
   })
     .then((data) => {
       console.log(data)
@@ -117,6 +121,9 @@ export async function patchUserSocials(patchData) {
       method: "PATCH",
       url: `${apiUrl}/user/profile/socials/${currentUUID}`,
       data: patchData,
+      headers: {
+        Authorization: `Bearer ${currentToken}`,
+      },
     })
       // eslint-disable-next-line no-unused-vars
       .then((data) => {
@@ -145,6 +152,40 @@ export async function patchUserSocials(patchData) {
         }
       })
   )
+}
+export async function searchUser(searchQuery) {
+  return axios({
+    method: "GET",
+    url: `${apiUrl}/user/profile/search?search=${searchQuery}`,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      console.log(data)
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
 }
 export function logOut() {
   currentUUID = ""

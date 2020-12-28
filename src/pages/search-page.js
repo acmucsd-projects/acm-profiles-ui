@@ -39,30 +39,7 @@ class SearchPage extends React.Component {
       alert(`Searching for ${searchQuery} in ${searchType}`)
 
       // pull search results from api
-      // if results are empty, set noResults to true
-      // This is a set of two temporary search results to display what the user card looks like
-      // const currentSearchResults = [
-      //   {
-      //     uuid: 123456,
-      //     firstName: "Patrick",
-      //     lastName: "Brown",
-      //     major: "Computer Science",
-      //     graduationYear: 2023,
-      //     college: "Sixth",
-      //     profileImageURL:
-      //       "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-      //   },
-      //   {
-      //     uuid: 654321,
-      //     firstName: "John",
-      //     lastName: "Smith",
-      //     major: "Computer Engineering",
-      //     graduationYear: 2022,
-      //     college: "Warren",
-      //     profileImageURL:
-      //       "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-      //   },
-      // ]
+
       const currentSearchResults = []
       this.setState({
         searchResults: currentSearchResults,

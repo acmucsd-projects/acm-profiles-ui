@@ -13,16 +13,34 @@ function ContactCard(props) {
 
   switch (type) {
     case "discord":
-      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/2111/2111370.svg"
+      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/2111/2111310.svg"
+      break
+    case "email":
+      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/3781/3781605.svg"
       break
     case "facebook":
-      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/733/733547.svg"
+      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/725/725289.svg"
+      break
+    case "github":
+      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/889/889192.svg"
       break
     case "instagram":
-      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/2111/2111463.svg"
+      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/1383/1383263.svg"
       break
     case "linkedin":
-      imageUrl = null
+      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/725/725337.svg"
+      break
+    case "reddit":
+      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/1383/1383267.svg"
+      break
+    case "snapchat":
+      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/1383/1383266.svg"
+      break
+    case "tiktok":
+      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/3046/3046123.svg"
+      break
+    case "twitter":
+      imageUrl = "https://www.flaticon.com/svg/static/icons/svg/1383/1383265.svg"
       break
     default:
       break

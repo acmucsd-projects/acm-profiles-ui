@@ -12,18 +12,25 @@ function UserList(props) {
   // Required props: userList
 
   const userList = props.userList
-  const userCardList = userList.map((user) => (
-    <UserCard
-      key={user.uuid}
-      uuid={user.uuid}
-      firstName={user.firstName}
-      lastName={user.lastName}
-      major={user.major}
-      graduationYear={user.graduationYear}
-      college={user.college}
-      profileImageURL={user.profileImageURL}
-    />
-  ))
+  const userCardList = userList.map((user) => {
+    const major = user.major != null ? user.major : "Undecided"
+    const college = user.college != null ? user.college : "Undeclared"
+    const imagesrc =
+      user.profile_pic != null
+        ? user.profile_pic
+        : "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1200px-User_font_awesome.svg.png"
+    return (
+      <UserCard
+        key={user.uuid}
+        firstName={user.first_name}
+        lastName={user.last_name}
+        major={major}
+        graduationYear={user.grad_year}
+        college={college}
+        profileImageURL={imagesrc}
+      />
+    )
+  })
   return <div>{userCardList}</div>
 }
 

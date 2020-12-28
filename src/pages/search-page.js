@@ -2,6 +2,7 @@
 import React from "react"
 import "./search-page.css"
 import { Typography, Input, Select, Button } from "antd"
+import { Redirect } from "react-router-dom"
 import "antd/dist/antd.css"
 import UserCard from "../components/UserList/UserCard"
 import CreateCommunityModal from "../components/UI/CreateCommunityModal"
@@ -21,10 +22,13 @@ class SearchPage extends React.Component {
       noResults: false,
       showCreateCommunityModal: false,
       loading: false,
+      redirect: false,
+      ucid: null,
     }
     this.handleSelectChange = this.handleSelectChange.bind(this)
     this.setVisible = this.setVisible.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
+    this.updateRedirect = this.updateRedirect.bind(this)
   }
 
   setVisible(v) {
@@ -52,8 +56,22 @@ class SearchPage extends React.Component {
     }
   }
 
+  updateRedirect(newUCID) {
+    this.setState({ redirect: true, ucid: newUCID })
+  }
+
   render() {
-    const { searchType, searchResults, noResults, showCreateCommunityModal } = this.state
+    const {
+      searchType,
+      searchResults,
+      noResults,
+      showCreateCommunityModal,
+      redirect,
+      ucid,
+    } = this.state
+    if (redirect) {
+      return <Redirect to={`/community/${ucid}`} />
+    }
     return (
       <div className="background">
         <div className="page-body">
@@ -121,7 +139,11 @@ class SearchPage extends React.Component {
             )}
           </div>
         </div>
-        <CreateCommunityModal isVisible={showCreateCommunityModal} setVisible={this.setVisible} />
+        <CreateCommunityModal
+          isVisible={showCreateCommunityModal}
+          setVisible={this.setVisible}
+          updateRedirect={this.updateRedirect}
+        />
       </div>
     )
   }

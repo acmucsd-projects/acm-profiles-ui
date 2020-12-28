@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import CommunityProfilePage from "./pages/community-profile-page"
 import LogInPage from "./pages/log-in-page"
@@ -6,14 +6,17 @@ import NavBar from "./components/NavBar/NavBar"
 import SearchPage from "./pages/search-page"
 import UserProfilePage from "./pages/user-profile-page"
 import "./App.css"
+import { getUUID } from "./url-wrappers"
 
 function App() {
   /* TODO: handle authentication properly for redirect */
   const [authenticated, setAuthenticated] = useState(false)
-  const [userId, setUserId] = useState(-1)
-
+  const [userId, setUserId] = useState("")
+  useEffect(() => {
+    setUserId(getUUID())
+    setAuthenticated(userId !== "")
+  }, [userId, authenticated, setAuthenticated, setUserId])
   /* ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
-
   return (
     <div>
       <Router>
@@ -24,7 +27,7 @@ function App() {
               <Redirect to="/login" />
             ) : (
               <>
-                <NavBar setAuthenticated={setAuthenticated} setUserId={setUserId} />
+                <NavBar setAuthenticated={setAuthenticated} />
                 <UserProfilePage />
               </>
             )}
@@ -34,7 +37,7 @@ function App() {
               <Redirect to="/login" />
             ) : (
               <>
-                <NavBar setAuthenticated={setAuthenticated} setUserId={setUserId} />
+                <NavBar setAuthenticated={setAuthenticated} />
                 <SearchPage />
               </>
             )}
@@ -45,7 +48,7 @@ function App() {
               <Redirect to="/login" />
             ) : (
               <>
-                <NavBar setAuthenticated={setAuthenticated} setUserId={setUserId} />
+                <NavBar setAuthenticated={setAuthenticated} />
                 <CommunityProfilePage />
               </>
             )}
@@ -54,7 +57,7 @@ function App() {
             {authenticated ? (
               <Redirect to={`/user/${userId}`} />
             ) : (
-              <LogInPage setAuthenticated={setAuthenticated} setUserId={setUserId} />
+              <LogInPage setAuthenticated={setAuthenticated} />
             )}
           </Route>
           <Route path="/">

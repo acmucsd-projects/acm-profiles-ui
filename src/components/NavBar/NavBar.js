@@ -1,17 +1,21 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
+/* eslint-disable prefer-destructuring */
 import React from "react"
 import { Link } from "react-router-dom"
 import "./NavBar.css"
 import { Typography } from "antd"
 import ACMLogo from "../../images/acm-logo.png"
+import { logOut } from "../../url-wrappers"
 
 const { Title } = Typography
 
 const NavigationBar = (props) => {
+  const setAuthenticated = props.setAuthenticated
   const deauthenticate = () => {
     // eslint-disable-next-line react/prop-types
-    props.setAuthenticated(false)
-    // eslint-disable-next-line react/prop-types
-    props.setUserId(-1)
+    logOut()
+    setAuthenticated(false)
   }
 
   return (

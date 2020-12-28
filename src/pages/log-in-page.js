@@ -1,24 +1,60 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable react/destructuring-assignment */
 import React from "react"
 import "./log-in-page.css"
-import { Form, Input, Button, Checkbox, Typography } from "antd"
+import { Form, Input, Button, Typography, notification } from "antd"
 import "antd/dist/antd.css"
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { UserOutlined, LockOutlined } from "@ant-design/icons"
+import { userLogIn } from "../url-wrappers"
 
 const { Title } = Typography
 
-function LogInForm() {
-  const onFinish = (values) => {
-    // eslint-disable-next-line no-console
-    console.log("Received values of form: ", values)
+function LogInForm(props) {
+  const setAuthenticated = props.setAuthenticated
+  const openErrorNotification = () => {
+    notification.error({
+      message: "Log In Failed",
+      description:
+        "The information you entered didn't match any account in our systems. Try reentering your account info.",
+    })
   }
+  const onFinish = async (values) => {
+    // call log in
+    const loginResponse = await userLogIn(values.email, values.password)
+    if (loginResponse.status >= 200 && loginResponse.status < 300) {
+      setAuthenticated(true)
+      // good info, good response
+    } else {
+      // error
+      openErrorNotification()
+    }
+  }
+  const onFinishFailed = () => {
+    // console.log("Failed:", errorInfo)
+  }
+
   return (
     <div className="log-in-panel">
       <Title size={2} style={{ paddingBottom: "20px" }}>
         Log In
       </Title>
-      <Form name="normal_login" onFinish={onFinish} layout="vertical">
-        <Form.Item name="email" rules={[{ required: true, message: "Please input your Email!" }]}>
+      <Form
+        name="normal_login"
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+        layout="vertical"
+      >
+        <Form.Item
+          name="email"
+          rules={[
+            {
+              required: true,
+              type: "email",
+              message: "The input is not valid E-mail!",
+            },
+          ]}
+        >
           <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Email" />
         </Form.Item>
         <Form.Item
@@ -31,19 +67,17 @@ function LogInForm() {
             placeholder="Password"
           />
         </Form.Item>
-        <Form.Item>
-          <Form.Item name="remember" valuePropName="checked" noStyle>
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-          <a className="login-form-forgot" href="forgot">
-            Forgot password
-          </a>
-        </Form.Item>
+
         <Form.Item>
           <Button type="primary" htmlType="submit" className="login-form-button">
             Log in
           </Button>
-          <br /> Or <a href="register">register now!</a>
+        </Form.Item>
+        <Form.Item>
+          <a className="login-form-forgot" href="forgot">
+            Forgot password
+          </a>
+          <br /> Or <br /> <a href="register">register now on the portal!</a>
         </Form.Item>
       </Form>
     </div>
@@ -51,21 +85,11 @@ function LogInForm() {
 }
 
 function LogInPage(props) {
-  // THIS IS TEMPORARY, REMOVE ONCE USER AUTHENTICATION IS SET UP
-  const authenticate = () => {
-    // eslint-disable-next-line react/prop-types
-    props.setAuthenticated(true)
-    // eslint-disable-next-line react/prop-types
-    props.setUserId(123456)
-  }
+  const setAuthenticated = props.setAuthenticated
   return (
     <div className="log-in-body">
       <div className="spacer15vw" />
-      <LogInForm />
-      {
-        // This will automatically authenticate the client with userId=123456
-      }
-      <Button onClick={() => authenticate()}>Automatically Authenticate</Button>
+      <LogInForm setAuthenticated={setAuthenticated} />
     </div>
   )
 }

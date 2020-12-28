@@ -1,9 +1,12 @@
+/* eslint-disable react/destructuring-assignment */
 import React from "react"
 import "./search-page.css"
 import { Typography, Input, Select, Button } from "antd"
 import "antd/dist/antd.css"
 import UserCard from "../components/UserList/UserCard"
 import CreateCommunityModal from "../components/UI/CreateCommunityModal"
+
+import { searchUser } from "../url-wrappers"
 
 const { Title, Text } = Typography
 const { Option } = Select
@@ -17,6 +20,7 @@ class SearchPage extends React.Component {
       searchResults: null,
       noResults: false,
       showCreateCommunityModal: false,
+      loading: false,
     }
     this.handleSelectChange = this.handleSelectChange.bind(this)
     this.setVisible = this.setVisible.bind(this)
@@ -31,19 +35,19 @@ class SearchPage extends React.Component {
     this.setState({ searchType: value })
   }
 
-  handleSearch(searchQuery) {
+  async handleSearch(searchQuery) {
     // get search results here, store in state, use to create a list of user cards
     if (searchQuery !== "") {
+      // eslint-disable-next-line no-unused-vars
       const { searchType } = this.state
-      // eslint-disable-next-line no-alert
-      alert(`Searching for ${searchQuery} in ${searchType}`)
 
       // pull search results from api
-
-      const currentSearchResults = []
+      this.setState({ loading: true })
+      const currentSearchResults = await searchUser(searchQuery)
       this.setState({
         searchResults: currentSearchResults,
-        noResults: currentSearchResults.length === 0,
+        noResults: currentSearchResults.data.length === 0,
+        loading: false,
       })
     }
   }
@@ -77,30 +81,44 @@ class SearchPage extends React.Component {
             />
           </div>
           <div className="search-results-container">
-            {searchResults !== null && noResults === true && (
-              <Text>We couldn&apos;t find any results for your search, maybe you mistyped?</Text>
+            {this.state.loading ? (
+              <Text>Loading...</Text>
+            ) : (
+              <>
+                {noResults === true && (
+                  <Text>
+                    We couldn&apos;t find any results for your search, maybe you mistyped?
+                  </Text>
+                )}
+                {searchResults !== null && noResults === true && searchType === "community" && (
+                  <div>
+                    <br />
+                    <Text> Or, </Text>
+                    <Button type="link" onClick={() => this.setVisible(true)}>
+                      Create a community
+                    </Button>
+                    <Text> if it doesn&apos;t exist! </Text>
+                  </div>
+                )}
+                {searchResults != null &&
+                  searchResults.data.map((user) => (
+                    <UserCard
+                      key={user.uuid}
+                      uuid={user.uuid}
+                      firstName={user.first_name}
+                      lastName={user.last_name}
+                      major={user.major}
+                      graduationYear={user.grad_year}
+                      college={user.college === null ? "Undeclared" : user.college}
+                      profileImageURL={
+                        user.profile_pic != null
+                          ? user.profile_pic
+                          : "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1200px-User_font_awesome.svg.png"
+                      }
+                    />
+                  ))}
+              </>
             )}
-            {searchResults !== null && noResults === true && searchType === "community" && (
-              <div>
-                <br />
-                <Text> Or, </Text>
-                <Button type="link" onClick={() => this.setVisible(true)}>
-                  Create a community
-                </Button>
-                <Text> if it doesn&apos;t exist! </Text>
-              </div>
-            )}
-            {searchResults != null &&
-              searchResults.map((user) => (
-                <UserCard
-                  firstName={user.firstName}
-                  lastName={user.lastName}
-                  major={user.major}
-                  graduationYear={user.graduationYear}
-                  college={user.college}
-                  profileImageURL={user.profileImageURL}
-                />
-              ))}
           </div>
         </div>
         <CreateCommunityModal isVisible={showCreateCommunityModal} setVisible={this.setVisible} />

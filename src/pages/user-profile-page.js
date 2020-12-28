@@ -36,7 +36,9 @@ function UserProfilePage() {
       setUser(userInfoResult.data)
       // then fetch user socials
       const userSocialResult = await getUserAxios(id, "/user/profile/socials/")
-      setContactsDatabaseState(userSocialResult.data)
+      const tempobj = {}
+      Object.assign(tempobj, userSocialResult.data)
+      setContactsDatabaseState(tempobj)
       setContacts(userSocialResult.data)
       // then fetch followers and following lists
       const userFollowers = await getUserAxios(id, "/user/follower_list/")
@@ -61,11 +63,10 @@ function UserProfilePage() {
 
       setFollowersList(userFollowersList)
       setFollowingList(userFollowingList)
+      setLoading(false)
     }
 
     fetchUserInfo()
-
-    setLoading(false)
   }, [
     setUser,
     setLoading,
@@ -94,12 +95,13 @@ function UserProfilePage() {
     // patch changed properties
     // eslint-disable-next-line eqeqeq
     if (patchUserDifference != {}) patchUserProfile(patchUserDifference)
-
+    console.log(contacts)
+    console.log(contactsDatabaseState)
     const patchSocialDifference = Object.keys(contacts).reduce((diff, key) => {
       if (contactsDatabaseState[key] === contacts[key]) return diff
       return {
         ...diff,
-        [key]: user[key],
+        [key]: contacts[key],
       }
     }, {})
     console.log(patchSocialDifference)

@@ -10,7 +10,6 @@ function ContactCard(props) {
   const { type, name, editable, updateSocial, deleteSocial } = props
   const typeText = type ? `${type.charAt(0).toUpperCase() + type.slice(1)}:` : "No Contacts"
   let imageUrl = null
-
   switch (type) {
     case "discord":
       imageUrl = "https://www.flaticon.com/svg/static/icons/svg/2111/2111310.svg"

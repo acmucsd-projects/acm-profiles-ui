@@ -6,16 +6,19 @@ import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Typography, Button, Tooltip } from "antd"
 import "./UserHeader.css"
+import { followUser, unfollowUser } from "../../url-wrappers"
 
 const { Title, Text } = Typography
 
 function UserHeader(props) {
+  // React isn't liking props destructuring here, idk why
   const editing = props.editing
   const updateEditing = props.updateEditing
   const user = props.user
   const setUser = props.setUser
   const myProfile = props.myProfile
   const followable = props.followable
+  const setFollowable = props.setFollowable
 
   const name = `${user.first_name} ${user.last_name}`
   const gradYear = user.grad_year
@@ -25,6 +28,15 @@ function UserHeader(props) {
     user.profile_pic != null
       ? user.profile_pic
       : "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1200px-User_font_awesome.svg.png"
+
+  const handleFollow = () => {
+    followUser(user.uuid)
+    setFollowable(false)
+  }
+  const handleUnfollow = () => {
+    unfollowUser(user.uuid)
+    setFollowable(true)
+  }
   const buttons = []
   if (myProfile && !editing)
     buttons.push(
@@ -39,13 +51,24 @@ function UserHeader(props) {
     )
   else if (!myProfile && followable)
     buttons.push(
-      <Button key="follow-profile-key" className="user-button" type="primary" size="large">
+      <Button
+        key="follow-profile-key"
+        className="user-button"
+        type="primary"
+        size="large"
+        onClick={handleFollow}
+      >
         + Follow
       </Button>
     )
   else if (!myProfile && !followable)
     buttons.push(
-      <Button key="unfollow-profile-key" className="user-button" size="large">
+      <Button
+        key="unfollow-profile-key"
+        className="user-button"
+        size="large"
+        onClick={handleUnfollow}
+      >
         - Unfollow
       </Button>
     )
@@ -122,6 +145,7 @@ UserHeader.propTypes = {
   // eslint-disable-next-line react/forbid-prop-types
   user: PropTypes.object.isRequired,
   setUser: PropTypes.func.isRequired,
+  setFollowable: PropTypes.func.isRequired,
 }
 
 export default UserHeader

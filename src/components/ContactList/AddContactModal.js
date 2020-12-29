@@ -22,6 +22,7 @@ function handleCreate(
   // eslint-disable-next-line no-console
   console.log(`Creating new contact with name: ${contactName}, and type: ${contactKey}`)
   // reset state variables
+  // eslint-disable-next-line no-param-reassign
   contactList[contactKey] = contactName
   setContactName("")
   setContactKey("")

@@ -5,9 +5,10 @@ import { Typography, Input, Select, Button } from "antd"
 import { Redirect } from "react-router-dom"
 import "antd/dist/antd.css"
 import UserCard from "../components/UserList/UserCard"
+import CommunityCard from "../components/CommunityList/CommunityCard"
 import CreateCommunityModal from "../components/UI/CreateCommunityModal"
 
-import { searchUser } from "../url-wrappers"
+import { searchUser, searchCommunity } from "../url-wrappers"
 
 const { Title, Text } = Typography
 const { Option } = Select
@@ -36,7 +37,7 @@ class SearchPage extends React.Component {
   }
 
   handleSelectChange(value) {
-    this.setState({ searchType: value })
+    this.setState({ searchType: value, searchResults: null, noResults: false })
   }
 
   async handleSearch(searchQuery) {
@@ -47,7 +48,11 @@ class SearchPage extends React.Component {
 
       // pull search results from api
       this.setState({ loading: true })
-      const currentSearchResults = await searchUser(searchQuery)
+
+      let currentSearchResults = []
+      if (this.state.searchType === "user") currentSearchResults = await searchUser(searchQuery)
+      else if (this.state.searchType === "community")
+        currentSearchResults = await searchCommunity(searchQuery)
       this.setState({
         searchResults: currentSearchResults,
         noResults: currentSearchResults.data.length === 0,
@@ -119,6 +124,7 @@ class SearchPage extends React.Component {
                   </div>
                 )}
                 {searchResults != null &&
+                  searchType === "user" &&
                   searchResults.data.map((user) => (
                     <UserCard
                       key={user.uuid}
@@ -132,6 +138,22 @@ class SearchPage extends React.Component {
                         user.profile_pic != null
                           ? user.profile_pic
                           : "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1200px-User_font_awesome.svg.png"
+                      }
+                    />
+                  ))}
+
+                {searchResults != null &&
+                  searchType === "community" &&
+                  searchResults.data.map((community) => (
+                    <CommunityCard
+                      key={community.ucid}
+                      cid={community.ucid}
+                      communityName={community.title}
+                      description={community.description}
+                      communityImageURL={
+                        community.profile_image_link != null
+                          ? community.profile_image_link
+                          : "https://www.freeiconspng.com/thumbs/community-icon/community-icon-21.png"
                       }
                     />
                   ))}

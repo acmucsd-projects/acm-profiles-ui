@@ -22,6 +22,7 @@ function handleCreate(
   // eslint-disable-next-line no-console
   console.log(`Creating new contact with name: ${contactName}, and type: ${contactKey}`)
   // reset state variables
+  // eslint-disable-next-line no-param-reassign
   contactList[contactKey] = contactName
   setContactName("")
   setContactKey("")
@@ -72,7 +73,9 @@ function AddContactModal(props) {
         <Form.Item name="contact-key" label="Platform" rules={[{ required: true }]}>
           <Select placeholder="Select one" onChange={onSocialKeyChange} allowClear>
             {emptySocials.map((key) => (
-              <Option value={key}>{key}</Option>
+              <Option key={key} value={key}>
+                {key}
+              </Option>
             ))}
           </Select>
         </Form.Item>

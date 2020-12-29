@@ -22,7 +22,7 @@ function UserCard(props) {
   return (
     <Link to={`/user/${uuid}`}>
       <div className="user-card-container">
-        {admin && <CrownOutlined />}
+        {admin && <CrownOutlined className="admin-icon" />}
         <div className="user-image-container">
           <img className="user-card-profile-image" src={profileImageURL} alt="user" />
         </div>

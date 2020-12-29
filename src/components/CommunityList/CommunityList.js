@@ -9,7 +9,7 @@ import CommunityCard from "./CommunityCard"
 import "./CommunityList.css"
 
 function CommunityList(props) {
-  // Required props: userList
+  // Required props: communityList
 
   const communityList = props.communityList
   const communityCardList = communityList.map((community) => {

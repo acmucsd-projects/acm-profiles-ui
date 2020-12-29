@@ -49,7 +49,7 @@ function CommunityHeader(props) {
       <Button
         key="leave-community-key"
         className="community-button"
-        type="primary"
+        type="secondary"
         size="large"
         onClick={handleLeave}
       >

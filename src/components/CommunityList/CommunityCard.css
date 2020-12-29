@@ -16,11 +16,14 @@
     box-shadow: 0px 0px 7px 1px rgba(0, 0, 0, 0.5);
   }
   .community-image-container {
+    margin-right: auto;
+
     margin: 0 0 0 10px;
     width: 80px;
   }
   .community-card-profile-image {
     height: 80px;
+    width: 80px;
     border-radius: 50%;
   }
   .community-name-container {
@@ -31,9 +34,12 @@
     align-items: center;
   }
   .community-details-container {
+    margin-left: auto;
+    width: stretch;
+    padding-right: 5px;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: flex-start;
   }
   

@@ -9,10 +9,12 @@
 }
 
 .community-image-container {
+    margin-left: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
+    width: 25%;
 }
 
 .community-info-container {
@@ -20,6 +22,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: left;
+    width: 75%;
     padding: 0 20px 0 20px;
 }
 

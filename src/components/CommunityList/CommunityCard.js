@@ -7,7 +7,7 @@ import "./CommunityCard.css"
 
 const { Title, Text } = Typography
 function CommunityCard(props) {
-  // Required props: key, communityName, description, numMembers communityImageURL
+  // Required props: key, communityName, description, numMembers, communityImageURL
   const { cid, communityName, description, numMembers, communityImageURL } = props
   return (
     <Link to={`/user/${cid}`}>

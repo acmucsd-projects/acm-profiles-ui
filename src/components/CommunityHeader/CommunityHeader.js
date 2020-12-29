@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from "react"
@@ -38,7 +39,10 @@ function CommunityHeader(props) {
     tempCommunity.description = newDescription
     setCommunity(tempCommunity)
   }
-
+  const imgSrc =
+    community.profile_image_link === null
+      ? "https://www.freeiconspng.com/thumbs/community-icon/community-icon-21.png"
+      : community.profile_image_link
   return (
     <div className="community-header-container">
       <div className="community-image-container">
@@ -47,14 +51,14 @@ function CommunityHeader(props) {
             <Tooltip title="Click to edit">
               <img
                 className="community-image"
-                src={community.image}
+                src={imgSrc}
                 alt="community"
                 onClick={() => setImageModal(true)}
               />
             </Tooltip>
           </span>
         )}
-        {!editing && <img className="community-image" src={community.image} alt="community" />}
+        {!editing && <img className="community-image" src={imgSrc} alt="community" />}
       </div>
       <div className="community-info-container">
         <div className="community-info-title-container">

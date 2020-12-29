@@ -154,7 +154,7 @@ function UserProfilePage() {
             ) : (
               <>
                 <Link
-                  to="/community/b592e41f-918c-4cae-80f6-8b1436187891"
+                  to="/community/306f6911-9afa-45bf-a0e7-6f61d4330843"
                   className="navigation-button"
                 >
                   go to another community

@@ -5,23 +5,54 @@ import React from "react"
 import PropTypes from "prop-types"
 import { Typography, Button, Tooltip } from "antd"
 import "./CommunityHeader.css"
+import { joinCommunity, leaveCommunity } from "../../url-wrappers"
 
 const { Title, Text } = Typography
 
 function CommunityHeader(props) {
   // Required props: community, canEdit, canJoin, editing, updateEditing
-  const { community, canEdit, canJoin, editing, updateEditing, setCommunity, setImageModal } = props
+  const {
+    community,
+    canEdit,
+    canJoin,
+    setCanJoin,
+    editing,
+    updateEditing,
+    setCommunity,
+    setImageModal,
+  } = props
+
+  const handleJoin = () => {
+    joinCommunity(community.ucid)
+    setCanJoin(false)
+  }
+  const handleLeave = () => {
+    leaveCommunity(community.ucid)
+    setCanJoin(true)
+  }
   const buttons = []
 
   if (canJoin)
     buttons.push(
-      <Button key="join-community-key" className="community-button" type="primary" size="large">
+      <Button
+        key="join-community-key"
+        className="community-button"
+        type="primary"
+        size="large"
+        onClick={handleJoin}
+      >
         + Join
       </Button>
     )
   else
     buttons.push(
-      <Button key="leave-community-key" className="community-button" type="primary" size="large">
+      <Button
+        key="leave-community-key"
+        className="community-button"
+        type="primary"
+        size="large"
+        onClick={handleLeave}
+      >
         Leave
       </Button>
     )
@@ -90,6 +121,7 @@ CommunityHeader.propTypes = {
   canJoin: PropTypes.bool.isRequired,
   canEdit: PropTypes.bool.isRequired,
   editing: PropTypes.bool.isRequired,
+  setCanJoin: PropTypes.func.isRequired,
   updateEditing: PropTypes.func.isRequired,
   setCommunity: PropTypes.func.isRequired,
   setImageModal: PropTypes.func.isRequired,

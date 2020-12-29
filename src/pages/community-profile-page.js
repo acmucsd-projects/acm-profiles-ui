@@ -119,8 +119,8 @@ function CommunityProfilePage() {
     if (patchCommunityDifference != {}) patchCommunityProfile(id, patchCommunityDifference)
     // console.log(contacts)
     // console.log(contactsDatabaseState)
-    console.log(contacts)
-    console.log(contactsDatabaseState)
+    // console.log(contacts)
+    // console.log(contactsDatabaseState)
     const patchSocialDifference = Object.keys(contacts).reduce((diff, key) => {
       if (contactsDatabaseState[key] === contacts[key]) return diff
       return {
@@ -128,60 +128,10 @@ function CommunityProfilePage() {
         [key]: contacts[key],
       }
     }, {})
-    console.log(patchSocialDifference)
+    // console.log(patchSocialDifference)
     // eslint-disable-next-line eqeqeq
     if (patchSocialDifference != {}) patchCommunitySocials(id, patchSocialDifference)
   }
-
-  /* TODO: get community information from backend */
-  /*
-  const membersList = [
-    {
-      uuid: 123456,
-      firstName: "Joe",
-      lastName: "Ma",
-      major: "Computer Science",
-      graduationYear: 2023,
-      college: "Eighth",
-      profileImageURL:
-        "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-    },
-    {
-      uuid: 654321,
-      firstName: "John",
-      lastName: "Smith",
-      major: "Computer Engineering",
-      graduationYear: 2022,
-      college: "Warren",
-      profileImageURL:
-        "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-    },
-    {
-      uuid: 232341,
-      firstName: "John",
-      lastName: "Doe",
-      major: "Computer Science",
-      graduationYear: 2023,
-      college: "Sixth",
-      profileImageURL:
-        "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-    },
-    {
-      uuid: 129410,
-      firstName: "Joe",
-      lastName: "Smith",
-      major: "Biology",
-      graduationYear: 2024,
-      college: "Marshall",
-      profileImageURL:
-        "https://www.rasmussen.edu/-/media/images/blog/authors/will-erstad.jpg?h=256&w=256&la=en&hash=B22E03E9F3B26AE141E0109114059B8D54B71024",
-    },
-  ]
-  const [user, setUser] = useState({
-    canJoin: false,
-    canEdit: true,
-  }) */
-  /* ^^^^^^^^^ placeholder information ^^^^^^^^^^ */
 
   const CommunityProfileTabs = () => (
     <div className="my-centered-tab-wrapper">
@@ -215,6 +165,7 @@ function CommunityProfilePage() {
               setCommunity={setCommunity}
               setUser={setCommunity}
               setImageModal={setImageModal}
+              setCanJoin={setJoinable}
             />
             <Divider />
             <CommunityProfileTabs />

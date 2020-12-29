@@ -3,11 +3,12 @@
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable react/no-unused-prop-types */
-import React from "react"
+import React, { useState } from "react"
 import PropTypes from "prop-types"
 import { Button } from "antd"
 import ContactCard from "./ContactCard"
 import "./ContactList.css"
+import AddContactModal from "./AddContactModal"
 
 function ContactList(props) {
   // Required props: contacts (currently placeholder), editable
@@ -15,7 +16,10 @@ function ContactList(props) {
   const editing = props.editing
   const contacts = props.contacts
   const setContacts = props.setContacts
-
+  const [addContactModalVisible, setAddContactModalVisible] = useState(false)
+  const setVisible = (v) => {
+    setAddContactModalVisible(v)
+  }
   const updateSocial = (key, newSocial) => {
     // eslint-disable-next-line prefer-template
     setContacts({ ...contacts, [key]: newSocial })
@@ -49,17 +53,27 @@ function ContactList(props) {
       </div>
       {editing && (
         <div className="contact-list-edit-button-container">
-          <Button className="contact-list-edit-button" type="primary">
+          <Button
+            className="contact-list-edit-button"
+            type="primary"
+            onClick={() => setVisible(true)}
+          >
             Add Contact
           </Button>
         </div>
       )}
+      <AddContactModal
+        isVisible={addContactModalVisible}
+        setVisible={setVisible}
+        contactList={contacts}
+        setContactList={setContacts}
+      />
     </div>
   )
 }
 
 ContactList.propTypes = {
-  editable: PropTypes.bool.isRequired,
+  editing: PropTypes.bool.isRequired,
 }
 
 export default ContactList

@@ -22,6 +22,7 @@ function UserList(props) {
     return (
       <UserCard
         key={user.uuid}
+        uuid={user.uuid}
         firstName={user.first_name}
         lastName={user.last_name}
         major={major}

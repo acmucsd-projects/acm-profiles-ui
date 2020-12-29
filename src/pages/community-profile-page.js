@@ -68,6 +68,7 @@ function CommunityProfilePage() {
       const userMemberList = []
       commMemberList.data.forEach(async (member) => {
         const currMemberInfo = await getUserAxios(member.member, "/user/profile/")
+        currMemberInfo.data.admin = member.admin
         userMemberList.push(currMemberInfo.data)
       })
       setMembersList(userMemberList)

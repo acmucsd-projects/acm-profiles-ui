@@ -4,14 +4,25 @@ import { Typography } from "antd"
 import PropTypes from "prop-types"
 import "antd/dist/antd.css"
 import "./UserCard.css"
+import { CrownOutlined } from "@ant-design/icons"
 
 const { Title, Text } = Typography
 function UserCard(props) {
   // Required props: key, firstName, lastName, major, graduationYear, college, profileImageURL
-  const { uuid, firstName, lastName, major, graduationYear, college, profileImageURL } = props
+  const {
+    uuid,
+    firstName,
+    lastName,
+    major,
+    graduationYear,
+    college,
+    profileImageURL,
+    admin,
+  } = props
   return (
     <Link to={`/user/${uuid}`}>
       <div className="user-card-container">
+        {admin && <CrownOutlined />}
         <div className="user-image-container">
           <img className="user-card-profile-image" src={profileImageURL} alt="user" />
         </div>
@@ -37,6 +48,10 @@ UserCard.propTypes = {
   graduationYear: PropTypes.number.isRequired,
   college: PropTypes.string.isRequired,
   profileImageURL: PropTypes.string.isRequired,
+  admin: PropTypes.bool,
+}
+UserCard.defaultProps = {
+  admin: false,
 }
 
 export default UserCard

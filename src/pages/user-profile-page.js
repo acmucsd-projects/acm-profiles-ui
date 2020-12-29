@@ -117,7 +117,7 @@ function UserProfilePage() {
     }, {})
     console.log(patchSocialDifference)
     // eslint-disable-next-line eqeqeq
-    if (patchUserSocials != {}) patchUserSocials(patchSocialDifference)
+    if (patchSocialDifference != {}) patchUserSocials(patchSocialDifference)
   }
 
   const UserProfileTabs = () => (
@@ -153,8 +153,11 @@ function UserProfilePage() {
               <p> user not found </p>
             ) : (
               <>
-                <Link to="/user/16d9c560-fc43-4037-8690-9ca14de155d6" className="navigation-button">
-                  go to another profile
+                <Link
+                  to="/community/7e6e0064-d81b-4aea-9ce1-b043d46aadf2"
+                  className="navigation-button"
+                >
+                  go to another community
                 </Link>
                 <UserHeader
                   user={user}

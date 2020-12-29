@@ -1,31 +1,137 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Tabs, Divider } from "antd"
 import "antd/dist/antd.css"
 import "./community-profile-page.css"
+import { useParams } from "react-router-dom"
 import CommunityHeader from "../components/CommunityHeader/CommunityHeader"
 import ContactList from "../components/ContactList/ContactList"
 import UserList from "../components/UserList/UserList"
 import UpdateToolbar from "../components/UI/UpdateToolbar"
 import ChangeImageModal from "../components/UI/ChangeImageModal"
 
+import {
+  getCommunityAxios,
+  getUUID,
+  getCommunityMembers,
+  getUserAxios,
+  getCommunitySocials,
+  patchCommunityProfile,
+  patchCommunitySocials,
+} from "../url-wrappers"
+
 const { TabPane } = Tabs
 
 function CommunityProfilePage() {
+  // get community info
+  // get community members
+  // get community socials
+  // patch community info
+  // patch community socials
+  const { id } = useParams()
+
+  const [loading, setLoading] = useState(true)
+  const [canEdit, setCanEdit] = useState(false)
   const [editing, setEditing] = useState(false)
   const [showImageModal, setImageModal] = useState(false)
+
+  const [community, setCommunity] = useState({})
+  const [databaseStateCommunity, setDatabaseStateCommunity] = useState({})
+  const [contacts, setContacts] = useState({})
+  const [contactsDatabaseState, setContactsDatabaseState] = useState({})
+
+  const [membersList, setMembersList] = useState([])
+
+  const [joinable, setJoinable] = useState(true)
+
+  // THIS IS WHERE WE LOAD DATA FROM THE DATABASE
+  useEffect(() => {
+    async function fetchCommunityInfo() {
+      // first fetch community information
+      const communityInfoResult = await getCommunityAxios(id, "/community/")
+      setDatabaseStateCommunity(communityInfoResult.data)
+      setCommunity(communityInfoResult.data)
+
+      setCanEdit(true)
+      // then fetch user socials
+      const communitySocialResult = await getCommunitySocials(id)
+      setContactsDatabaseState(communitySocialResult.data)
+      setContacts(communitySocialResult.data)
+
+      // then fetch user info for each member
+
+      // note: the path '/community/member)list/ucid'  only
+      //       returns the uuids of the members, meaning we have to pull the
+      //       info for each of these users individually, then fetch members list
+      const commMemberList = await getCommunityMembers(id)
+      const userMemberList = []
+      commMemberList.data.forEach(async (member) => {
+        const currMemberInfo = await getUserAxios(member.member, "/user/profile/")
+        userMemberList.push(currMemberInfo.data)
+      })
+      setMembersList(userMemberList)
+
+      const currUUID = getUUID()
+      setJoinable(true)
+      await commMemberList.data.forEach((member) => {
+        if (member.member === currUUID) {
+          setJoinable(false)
+        }
+      })
+
+      setLoading(false)
+    }
+
+    fetchCommunityInfo()
+  }, [
+    setCommunity,
+    setLoading,
+    setContacts,
+    setMembersList,
+    setDatabaseStateCommunity,
+    setCanEdit,
+    setJoinable,
+    id,
+  ])
+  console.log("Community")
+  console.log(community)
+  console.log("Members List")
+  console.log(membersList)
+  console.log("Contacts")
+  console.log(contacts)
+  // eslint-disable-next-line no-unused-vars
+  // console.log(user)
+  // console.log(followingList)
+
+  const finishEditing = () => {
+    setEditing(false)
+    // push the new user object to API
+    // remove unchanged properties
+    const patchCommunityDifference = Object.keys(community).reduce((diff, key) => {
+      if (databaseStateCommunity[key] === community[key]) return diff
+      return {
+        ...diff,
+        [key]: community[key],
+      }
+    }, {})
+    // patch changed properties
+    // eslint-disable-next-line eqeqeq
+    if (patchCommunityDifference != {}) patchCommunityProfile(patchCommunityDifference)
+    // console.log(contacts)
+    // console.log(contactsDatabaseState)
+    const patchSocialDifference = Object.keys(contacts).reduce((diff, key) => {
+      if (contactsDatabaseState[key] === contacts[key]) return diff
+      return {
+        ...diff,
+        [key]: contacts[key],
+      }
+    }, {})
+    console.log(patchSocialDifference)
+    // eslint-disable-next-line eqeqeq
+    if (patchSocialDifference != {}) patchCommunitySocials(patchSocialDifference)
+  }
+
   /* TODO: get community information from backend */
-  const [community, setCommunity] = useState({
-    image:
-      "https://cravingsbychrissyteigen.com/wp-content/uploads/2020/05/CookingWithAlcohol_Square.jpg",
-    name: "ACM Cooking",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-  })
-  const [contacts, setContacts] = useState({
-    discord: "TheLegend27",
-    facebook: "Mark Zuckerberg",
-    instagram: "Mark Zuckerborg",
-  })
+  /*
   const membersList = [
     {
       uuid: 123456,
@@ -71,7 +177,7 @@ function CommunityProfilePage() {
   const [user, setUser] = useState({
     canJoin: false,
     canEdit: true,
-  })
+  }) */
   /* ^^^^^^^^^ placeholder information ^^^^^^^^^^ */
 
   const CommunityProfileTabs = () => (
@@ -90,29 +196,31 @@ function CommunityProfilePage() {
       </Tabs>
     </div>
   )
-
-  const finishEditing = () => {
-    setEditing(false)
-  }
-
   return (
     <div className="background">
       <div className="page-body">
-        <CommunityHeader
-          community={community}
-          canEdit={user.canEdit}
-          canJoin={user.canJoin}
-          editing={editing}
-          updateEditing={setEditing}
-          setCommunity={setCommunity}
-          setUser={setUser}
-          setImageModal={setImageModal}
-        />
-        <Divider />
-        <CommunityProfileTabs />
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <>
+            <CommunityHeader
+              community={community}
+              canEdit={canEdit}
+              canJoin={joinable}
+              editing={editing}
+              updateEditing={setEditing}
+              setCommunity={setCommunity}
+              setUser={setCommunity}
+              setImageModal={setImageModal}
+            />
+            <Divider />
+            <CommunityProfileTabs />
+
+            {editing && <UpdateToolbar finishEditing={finishEditing} />}
+            <ChangeImageModal isVisible={showImageModal} setVisible={setImageModal} />
+          </>
+        )}
       </div>
-      {editing && <UpdateToolbar finishEditing={finishEditing} />}
-      <ChangeImageModal isVisible={showImageModal} setVisible={setImageModal} />
     </div>
   )
 }

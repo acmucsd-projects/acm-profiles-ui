@@ -63,7 +63,7 @@ function CommunityHeader(props) {
       <div className="community-info-container">
         <div className="community-info-title-container">
           <div className="community-info-name-container">
-            <Title level={2}>{community.name}</Title>
+            <Title level={2}>{community.title}</Title>
           </div>
           <div className="community-info-button-container">{buttons}</div>
         </div>
@@ -83,8 +83,9 @@ function CommunityHeader(props) {
 CommunityHeader.propTypes = {
   community: PropTypes.shape({
     image: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
+    profile_image_link: PropTypes.string.isRequired,
   }).isRequired,
   canJoin: PropTypes.bool.isRequired,
   canEdit: PropTypes.bool.isRequired,

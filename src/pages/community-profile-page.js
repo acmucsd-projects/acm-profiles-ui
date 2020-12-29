@@ -28,7 +28,6 @@ function CommunityProfilePage() {
   // patch community info
   // patch community socials
   const { id } = useParams()
-
   const [loading, setLoading] = useState(true)
   const [canEdit, setCanEdit] = useState(false)
   const [editing, setEditing] = useState(false)
@@ -48,13 +47,16 @@ function CommunityProfilePage() {
     async function fetchCommunityInfo() {
       // first fetch community information
       const communityInfoResult = await getCommunityAxios(id, "/community/")
-      setDatabaseStateCommunity(communityInfoResult.data)
+      const tempcom = {}
+      Object.assign(tempcom, communityInfoResult.data)
+      setDatabaseStateCommunity(tempcom)
       setCommunity(communityInfoResult.data)
 
-      setCanEdit(true)
       // then fetch user socials
       const communitySocialResult = await getCommunitySocials(id)
-      setContactsDatabaseState(communitySocialResult.data)
+      const tempsocials = {}
+      Object.assign(tempsocials, communitySocialResult.data)
+      setContactsDatabaseState(tempsocials)
       setContacts(communitySocialResult.data)
 
       // then fetch user info for each member
@@ -72,9 +74,14 @@ function CommunityProfilePage() {
 
       const currUUID = getUUID()
       setJoinable(true)
+      // check if the current user is in the memberlist
       await commMemberList.data.forEach((member) => {
         if (member.member === currUUID) {
+          // current user exists in the memberlist
           setJoinable(false)
+          if (member.admin === true) {
+            setCanEdit(true)
+          }
         }
       })
 
@@ -92,12 +99,6 @@ function CommunityProfilePage() {
     setJoinable,
     id,
   ])
-  console.log("Community")
-  console.log(community)
-  console.log("Members List")
-  console.log(membersList)
-  console.log("Contacts")
-  console.log(contacts)
   // eslint-disable-next-line no-unused-vars
   // console.log(user)
   // console.log(followingList)
@@ -115,9 +116,11 @@ function CommunityProfilePage() {
     }, {})
     // patch changed properties
     // eslint-disable-next-line eqeqeq
-    if (patchCommunityDifference != {}) patchCommunityProfile(patchCommunityDifference)
+    if (patchCommunityDifference != {}) patchCommunityProfile(id, patchCommunityDifference)
     // console.log(contacts)
     // console.log(contactsDatabaseState)
+    console.log(contacts)
+    console.log(contactsDatabaseState)
     const patchSocialDifference = Object.keys(contacts).reduce((diff, key) => {
       if (contactsDatabaseState[key] === contacts[key]) return diff
       return {
@@ -127,7 +130,7 @@ function CommunityProfilePage() {
     }, {})
     console.log(patchSocialDifference)
     // eslint-disable-next-line eqeqeq
-    if (patchSocialDifference != {}) patchCommunitySocials(patchSocialDifference)
+    if (patchSocialDifference != {}) patchCommunitySocials(id, patchSocialDifference)
   }
 
   /* TODO: get community information from backend */

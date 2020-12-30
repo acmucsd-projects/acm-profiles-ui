@@ -144,7 +144,7 @@ function SearchPage() {
                     lastName={user.last_name}
                     major={user.major}
                     graduationYear={user.grad_year}
-                    college={user.college === null ? "Undeclared" : user.college}
+                    college={user.college === null ? "Undeclared College" : user.college}
                     profileImageURL={
                       user.profile_pic != null
                         ? user.profile_pic

@@ -41,6 +41,15 @@ export async function getUserAxios(uuid, path) {
       }
     })
 }
+export async function getUserPromise(uuid, path) {
+  return axios({
+    method: "GET",
+    url: `${apiUrl}${path}${uuid}`,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+}
 
 export async function userLogIn(email, password) {
   return axios({
@@ -550,6 +559,41 @@ export async function leaveCommunity(ucid) {
   return axios({
     method: "DELETE",
     url: `${apiUrl}/community/${ucid}/leave/${currentUUID}`,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error)
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
+}
+export async function getRecommendedUsers() {
+  return axios({
+    method: "GET",
+    url: `${apiUrl}/user/recommendations/${currentUUID}`,
     headers: {
       Authorization: `Bearer ${currentToken}`,
     },

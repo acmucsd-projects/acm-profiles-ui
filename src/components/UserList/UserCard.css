@@ -21,8 +21,8 @@
 }
 .user-image-container {
   display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+  flex-direction: column;
+  justify-content: space-evenly;
   margin-right: auto;
   margin: 0 0 0 10px;  
 }

@@ -41,6 +41,15 @@ export async function getUserAxios(uuid, path) {
       }
     })
 }
+export async function getUserPromise(uuid, path) {
+  return axios({
+    method: "GET",
+    url: `${apiUrl}${path}${uuid}`,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+}
 
 export async function userLogIn(email, password) {
   return axios({
@@ -85,6 +94,9 @@ export async function patchUserProfile(patchData) {
     method: "PATCH",
     url: `${apiUrl}/user/profile/${currentUUID}`,
     data: patchData,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
   })
     .then((data) => {
       console.log(data)
@@ -118,6 +130,9 @@ export async function patchUserSocials(patchData) {
       method: "PATCH",
       url: `${apiUrl}/user/profile/socials/${currentUUID}`,
       data: patchData,
+      headers: {
+        Authorization: `Bearer ${currentToken}`,
+      },
     })
       // eslint-disable-next-line no-unused-vars
       .then((data) => {
@@ -146,6 +161,78 @@ export async function patchUserSocials(patchData) {
         }
       })
   )
+}
+
+export async function searchUser(searchQuery) {
+  return axios({
+    method: "GET",
+    url: `${apiUrl}/user/profile/search?search=${searchQuery}`,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error)
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
+}
+
+export async function searchCommunity(searchQuery) {
+  return axios({
+    method: "GET",
+    url: `${apiUrl}/community/search?search=${searchQuery}`,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error)
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
 }
 // the logged in user follows the person with the parameter's uuid
 export async function followUser(uuid) {
@@ -220,6 +307,324 @@ export async function unfollowUser(uuid) {
     })
 }
 
+export async function createCommunity(communityData) {
+  return axios({
+    method: "POST",
+    url: `${apiUrl}/community/create/${currentUUID}`,
+    data: communityData,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error)
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
+}
+export async function getCommunityAxios(ucid, path) {
+  return axios({
+    method: "GET",
+    url: `${apiUrl}${path}${ucid}`,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error)
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
+}
+export async function getCommunityMembers(ucid) {
+  return axios({
+    method: "GET",
+    url: `${apiUrl}/community/member_list/${ucid}`,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error)
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
+}
+export async function getCommunitySocials(ucid) {
+  return axios({
+    method: "GET",
+    url: `${apiUrl}/community/social/${ucid}`,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error)
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
+}
+export async function patchCommunityProfile(ucid, patchData) {
+  return axios({
+    method: "PATCH",
+    url: `${apiUrl}/community/edit/${ucid}/${currentUUID}`,
+    data: patchData,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error)
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
+}
+export async function patchCommunitySocials(ucid, patchData) {
+  return axios({
+    method: "PATCH",
+    url: `${apiUrl}/community/social/${ucid}/${currentUUID}`,
+    data: patchData,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error)
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
+}
+export async function joinCommunity(ucid) {
+  return axios({
+    method: "POST",
+    url: `${apiUrl}/community/${ucid}/join/${currentUUID}`,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error)
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
+}
+export async function leaveCommunity(ucid) {
+  return axios({
+    method: "DELETE",
+    url: `${apiUrl}/community/${ucid}/leave/${currentUUID}`,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error)
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
+}
+export async function getRecommendedUsers() {
+  return axios({
+    method: "GET",
+    url: `${apiUrl}/user/recommendations/${currentUUID}`,
+    headers: {
+      Authorization: `Bearer ${currentToken}`,
+    },
+  })
+    .then((data) => {
+      return data
+    })
+    .catch((error) => {
+      // error!
+      if (error.response) {
+        /*
+         * The request was made and the server responded with a
+         * status code that falls out of the range of 2xx
+         */
+        console.log(error)
+        console.log(error.response.data)
+        console.log(error.response.status)
+        console.log(error.response.headers)
+      } else if (error.request) {
+        /*
+         * The request was made but no response was received, `error.request`
+         * is an instance of XMLHttpRequest in the browser and an instance
+         * of http.ClientRequest in Node.js
+         */
+        console.log(error.request)
+      } else {
+        // Something happened in setting up the request and triggered an Error
+        console.log("Error", error.message)
+      }
+    })
+}
 export function logOut() {
   currentUUID = ""
   currentToken = ""

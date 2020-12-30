@@ -12,6 +12,7 @@ function UserList(props) {
   // Required props: userList
 
   const userList = props.userList
+  console.log(userList)
   const userCardList = userList.map((user) => {
     const major = user.major != null ? user.major : "Undecided"
     const college = user.college != null ? user.college : "Undeclared"
@@ -23,6 +24,7 @@ function UserList(props) {
       <UserCard
         key={user.uuid}
         uuid={user.uuid}
+        admin={user.admin === undefined ? false : user.admin}
         firstName={user.first_name}
         lastName={user.last_name}
         major={major}

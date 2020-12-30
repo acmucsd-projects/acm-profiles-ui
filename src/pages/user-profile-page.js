@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import React, { useState, useEffect } from "react"
 import { Tabs, Divider } from "antd"
-import { useParams, Link } from "react-router-dom"
+import { useParams } from "react-router-dom"
 import "./user-profile-page.css"
 import "antd/dist/antd.css"
 import UserHeader from "../components/UserHeader/UserHeader"
@@ -87,7 +87,6 @@ function UserProfilePage() {
     id,
     setFollowable,
   ])
-  console.log(followable)
   // eslint-disable-next-line no-unused-vars
   // console.log(user)
   // console.log(followingList)
@@ -106,8 +105,8 @@ function UserProfilePage() {
     // patch changed properties
     // eslint-disable-next-line eqeqeq
     if (patchUserDifference != {}) patchUserProfile(patchUserDifference)
-    console.log(contacts)
-    console.log(contactsDatabaseState)
+    // console.log(contacts)
+    // console.log(contactsDatabaseState)
     const patchSocialDifference = Object.keys(contacts).reduce((diff, key) => {
       if (contactsDatabaseState[key] === contacts[key]) return diff
       return {
@@ -115,9 +114,9 @@ function UserProfilePage() {
         [key]: contacts[key],
       }
     }, {})
-    console.log(patchSocialDifference)
+    // console.log(patchSocialDifference)
     // eslint-disable-next-line eqeqeq
-    if (patchUserSocials != {}) patchUserSocials(patchSocialDifference)
+    if (patchSocialDifference != {}) patchUserSocials(patchSocialDifference)
   }
 
   const UserProfileTabs = () => (
@@ -153,9 +152,6 @@ function UserProfilePage() {
               <p> user not found </p>
             ) : (
               <>
-                <Link to="/user/16d9c560-fc43-4037-8690-9ca14de155d6" className="navigation-button">
-                  go to another profile
-                </Link>
                 <UserHeader
                   user={user}
                   myProfile={isMyProfile}

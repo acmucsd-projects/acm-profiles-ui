@@ -34,7 +34,7 @@ function ContactList(props) {
   const contactsArr = []
   // console.log(contacts)
   Object.entries(contacts).forEach(([key, value]) => {
-    if (key !== "user" && value !== null)
+    if (key !== "user" && key !== "community" && value !== null)
       contactsArr.push(
         <ContactCard
           key={key}

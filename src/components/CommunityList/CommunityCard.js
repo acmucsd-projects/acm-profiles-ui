@@ -8,9 +8,10 @@ import "./CommunityCard.css"
 const { Title, Text } = Typography
 function CommunityCard(props) {
   // Required props: key, communityName, description, numMembers, communityImageURL
-  const { cid, communityName, description, numMembers, communityImageURL } = props
+  const { cid, communityName, description, communityImageURL } = props
+
   return (
-    <Link to={`/user/${cid}`}>
+    <Link to={`/community/${cid}`}>
       <div className="community-card-container">
         <div className="community-image-container">
           <img className="community-card-profile-image" src={communityImageURL} alt="user" />
@@ -20,7 +21,6 @@ function CommunityCard(props) {
         </div>
         <div className="community-details-container">
           <Text>{description}</Text>
-          <Text>{numMembers}</Text>
         </div>
       </div>
     </Link>
@@ -30,7 +30,6 @@ CommunityCard.propTypes = {
   cid: PropTypes.string.isRequired,
   communityName: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  numMembers: PropTypes.number.isRequired,
   communityImageURL: PropTypes.string.isRequired,
 }
 

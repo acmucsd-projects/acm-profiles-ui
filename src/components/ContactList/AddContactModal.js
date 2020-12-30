@@ -73,7 +73,9 @@ function AddContactModal(props) {
         <Form.Item name="contact-key" label="Platform" rules={[{ required: true }]}>
           <Select placeholder="Select one" onChange={onSocialKeyChange} allowClear>
             {emptySocials.map((key) => (
-              <Option value={key}>{key}</Option>
+              <Option key={key} value={key}>
+                {key}
+              </Option>
             ))}
           </Select>
         </Form.Item>

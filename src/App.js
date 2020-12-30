@@ -23,7 +23,7 @@ function App() {
         <Switch>
           <Redirect exact from="/user" to={`/user/${userId}`} />
           <Route path="/user/:id">
-            {!authenticated ? (
+            {!authenticated || getUUID() === "" ? (
               <Redirect to="/login" />
             ) : (
               <>

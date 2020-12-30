@@ -1,27 +1,25 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable prefer-destructuring */
 /* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react"
+import React from "react"
 import PropTypes from "prop-types"
-import { Typography, Button, Tooltip } from "antd"
+import { Typography, Button, Tooltip, Menu, Dropdown } from "antd"
+import { EditOutlined } from "@ant-design/icons"
 import "./UserHeader.css"
 import { followUser, unfollowUser } from "../../url-wrappers"
 
 const { Title, Text } = Typography
 
 function UserHeader(props) {
-  // React isn't liking props destructuring here, idk why
-  const editing = props.editing
-  const updateEditing = props.updateEditing
-  const user = props.user
-  const setUser = props.setUser
-  const myProfile = props.myProfile
-  const followable = props.followable
-  const setFollowable = props.setFollowable
+  const { editing, updateEditing, user, setUser, myProfile, followable, setFollowable } = props
 
   const name = `${user.first_name} ${user.last_name}`
   const gradYear = user.grad_year
+  const college = user.college
   const description = user.bio
   const major = user.major != null ? user.major : "Undecided"
   const imagesrc =
@@ -72,12 +70,26 @@ function UserHeader(props) {
         - Unfollow
       </Button>
     )
-  const handleMajorChange = (newCollege) => {
+  const handleCollegeChange = (v) => {
+    const { key } = v
     const tempUser = {}
     Object.assign(tempUser, user)
-    tempUser.college = newCollege
+    tempUser.college = key !== "No College" ? key : null
     setUser(tempUser)
   }
+  const collegeMenu = (
+    <Menu onClick={handleCollegeChange} selectedKeys={college}>
+      <Menu.Item key="No College">No College</Menu.Item>
+      <Menu.Item key="Revelle College">Revelle College</Menu.Item>
+      <Menu.Item key="Muir College">Muir College</Menu.Item>
+      <Menu.Item key="Marshall College">Marshall College</Menu.Item>
+      <Menu.Item key="Warren College">Warren College</Menu.Item>
+      <Menu.Item key="Roosevelt College">Roosevelt College</Menu.Item>
+      <Menu.Item key="Sixth College">Sixth College</Menu.Item>
+      <Menu.Item key="Seventh College">Seventh College</Menu.Item>
+    </Menu>
+  )
+
   return (
     <div className="user-header-container">
       <div className="user-image-container">
@@ -119,12 +131,14 @@ function UserHeader(props) {
           <div className="user-info-button-container">{buttons}</div>
         </div>
         {editing && (
-          <Text editable={{ autoSize: { minRows: 1, maxRows: 1 }, onChange: handleMajorChange }}>
-            {user.college !== null ? user.college : "No College"}
-          </Text>
+          <Dropdown overlay={collegeMenu}>
+            <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+              {college !== null ? college : "No College"} <EditOutlined />
+            </a>
+          </Dropdown>
         )}
 
-        {!editing && <Text>{user.college !== null ? user.college : "No College"}</Text>}
+        {!editing && <Text>{college !== null ? college : "No College"}</Text>}
         {!editing ? (
           <Text>{description}</Text>
         ) : (

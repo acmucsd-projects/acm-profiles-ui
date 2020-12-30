@@ -17,6 +17,7 @@
 }
 .user-image {
     border: 2px solid rgb(230, 230, 230);
+    object-fit: cover;
 }
 
 .user-info-container {

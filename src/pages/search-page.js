@@ -148,7 +148,7 @@ function SearchPage() {
                     profileImageURL={
                       user.profile_pic != null
                         ? user.profile_pic
-                        : "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1200px-User_font_awesome.svg.png"
+                        : "https://upload.wikimedia.org/wikipedia/commons/a/a0/Pierre-Person.jpg"
                     }
                   />
                 ))}

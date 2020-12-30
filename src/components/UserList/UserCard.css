@@ -20,13 +20,18 @@
   margin-right: -10px;
 }
 .user-image-container {
+  display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
   margin-right: auto;
-  margin: 0 0 0 10px;
-  width: 80px;
+  margin: 0 0 0 10px;  
 }
 .user-card-profile-image {
-  height: 80px;
+  border: 2px solid rgb(230, 230, 230);
   border-radius: 50%;
+  object-fit: cover;
+  width: 80px;
+  height: 80px;
 }
 .user-name-container {
   margin: 0 10px 0 10px;

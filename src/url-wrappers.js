@@ -2,7 +2,7 @@
 /* eslint-disable no-console */
 import axios from "axios"
 
-const apiUrl = "http://acm-profiles-api.herokuapp.com/api"
+const apiUrl = "https://acm-profiles-api.herokuapp.com/api"
 let currentToken = ""
 let currentUUID = ""
 

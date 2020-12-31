@@ -15,7 +15,7 @@ function UserList(props) {
   console.log(userList)
   const userCardList = userList.map((user) => {
     const major = user.major != null ? user.major : "Undecided"
-    const college = user.college != null ? user.college : "Undeclared"
+    const college = user.college != null ? user.college : "Undeclared College"
     const imagesrc =
       user.profile_pic != null
         ? user.profile_pic

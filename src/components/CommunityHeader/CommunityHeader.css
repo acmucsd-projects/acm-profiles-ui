@@ -9,20 +9,28 @@
 }
 
 .community-image-container {
-    margin-left: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
+    width: 200px;
     align-items: center;
-    width: 25%;
+}
+.community-image {
+    display: block;
+    height: 200px;
+    width: 200px;
+    border-radius: 100%;
+    border: 2px solid rgb(230, 230, 230);
+    object-fit: cover;
 }
 
 .community-info-container {
+    max-width: 500px;
+    min-width: 400px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: left;
-    width: 75%;
     padding: 0 20px 0 20px;
 }
 
@@ -48,12 +56,6 @@
     padding: 10px;
 }
 
-.community-image {
-    display: block;
-    height: 200px;
-    width: 200px;
-    border-radius: 100%;
-}
 
 .community-button {
     margin: 0 5px 0 5px;

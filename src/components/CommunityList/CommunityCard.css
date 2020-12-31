@@ -22,9 +22,11 @@
     width: 80px;
   }
   .community-card-profile-image {
-    height: 80px;
-    width: 80px;
+    border: 2px solid rgb(230, 230, 230);
     border-radius: 50%;
+    object-fit: cover;
+    width: 80px;
+    height: 80px;
   }
   .community-name-container {
     margin: 0 10px 0 10px;

@@ -33,7 +33,7 @@ function UserCard(props) {
         </div>
         <div className="user-details-container">
           <Text>{major}</Text>
-          <Text>{college} College</Text>
+          <Text>{college}</Text>
           <Text>Class of {graduationYear}</Text>
         </div>
       </div>

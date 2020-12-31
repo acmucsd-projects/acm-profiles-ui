@@ -27,7 +27,7 @@ function App() {
               <Redirect to="/login" />
             ) : (
               <>
-                <NavBar setAuthenticated={setAuthenticated} />
+                <NavBar setAuthenticated={setAuthenticated} setUUID={setUserId} />
                 <UserProfilePage />
               </>
             )}
@@ -37,7 +37,7 @@ function App() {
               <Redirect to="/login" />
             ) : (
               <>
-                <NavBar setAuthenticated={setAuthenticated} />
+                <NavBar setAuthenticated={setAuthenticated} setUUID={setUserId} />
                 <SearchPage />
               </>
             )}
@@ -48,7 +48,7 @@ function App() {
               <Redirect to="/login" />
             ) : (
               <>
-                <NavBar setAuthenticated={setAuthenticated} />
+                <NavBar setAuthenticated={setAuthenticated} setUUID={setUserId} />
                 <CommunityProfilePage />
               </>
             )}
@@ -57,7 +57,7 @@ function App() {
             {authenticated ? (
               <Redirect to={`/user/${userId}`} />
             ) : (
-              <LogInPage setAuthenticated={setAuthenticated} />
+              <LogInPage setAuthenticated={setAuthenticated} setUUID={setUserId} />
             )}
           </Route>
           <Route path="/">

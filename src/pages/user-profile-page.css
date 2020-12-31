@@ -16,16 +16,15 @@
     padding: 20px;
 }
 .tab-container {
-    display: flex;
+    flex: column;
     justify-content: center;
     align-items: center;
-    min-width: 60vw;
-    max-width: 610px;
+    max-width: 100%;
+    min-width: 100%;
 }
 .my-centered-tab-wrapper .ant-tabs-nav {
     display: flex !important;
-    max-width: 60vw !important;
-    min-width: 610px !important;
+    width: 60em !important;
 }
 .my-centered-tab-wrapper .ant-tabs-nav-list {
     display: flex !important;

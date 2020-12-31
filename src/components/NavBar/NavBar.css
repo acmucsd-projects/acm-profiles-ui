@@ -42,6 +42,8 @@
 }
 .nav-logo-image {
     padding: 5px;
-    height: 10vh;
+    max-height: 9vh;
     min-height: 60px;
+    object-fit: cover;
+
 }

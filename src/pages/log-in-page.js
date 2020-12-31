@@ -74,10 +74,11 @@ function LogInForm(props) {
           </Button>
         </Form.Item>
         <Form.Item>
-          <a className="login-form-forgot" href="forgot">
+          <a className="login-form-forgot" href="https://members.acmucsd.com/forgot-password">
             Forgot password
           </a>
-          <br /> Or <br /> <a href="register">register now on the portal!</a>
+          <br /> Or <br />{" "}
+          <a href="https://members.acmucsd.com/register">register now on the portal!</a>
         </Form.Item>
       </Form>
     </div>

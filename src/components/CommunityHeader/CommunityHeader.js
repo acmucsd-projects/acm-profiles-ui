@@ -3,6 +3,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from "react"
 import PropTypes from "prop-types"
+// eslint-disable-next-line no-unused-vars
 import { Typography, Button, Tooltip } from "antd"
 import "./CommunityHeader.css"
 import { joinCommunity, leaveCommunity } from "../../url-wrappers"
@@ -79,14 +80,12 @@ function CommunityHeader(props) {
       <div className="community-image-container">
         {editing && (
           <span>
-            <Tooltip title="Click to edit">
-              <img
-                className="community-image"
-                src={imgSrc}
-                alt="community"
-                onClick={() => setImageModal(true)}
-              />
-            </Tooltip>
+            <img
+              className="community-image"
+              src={imgSrc}
+              alt="community"
+              onClick={() => setImageModal(false)}
+            />
           </span>
         )}
         {!editing && <img className="community-image" src={imgSrc} alt="community" />}

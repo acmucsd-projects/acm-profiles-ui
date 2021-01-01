@@ -9,7 +9,15 @@ import UserHeader from "../components/UserHeader/UserHeader"
 import ContactList from "../components/ContactList/ContactList"
 import UpdateToolbar from "../components/UI/UpdateToolbar"
 import UserList from "../components/UserList/UserList"
-import { getUserAxios, getUUID, patchUserProfile, patchUserSocials } from "../url-wrappers"
+import CommunityList from "../components/CommunityList/CommunityList"
+
+import {
+  getUserAxios,
+  getUUID,
+  patchUserProfile,
+  patchUserSocials,
+  getCommunityAxios,
+} from "../url-wrappers"
 
 const { TabPane } = Tabs
 
@@ -27,6 +35,7 @@ function UserProfilePage() {
 
   const [followersList, setFollowersList] = useState([])
   const [followingList, setFollowingList] = useState([])
+  const [communityList, setCommunityList] = useState([])
 
   const [followable, setFollowable] = useState(true)
 
@@ -73,6 +82,15 @@ function UserProfilePage() {
 
       setFollowersList(userFollowersList)
       setFollowingList(userFollowingList)
+
+      // then fetch community information
+      const userCommunityResult = await getUserAxios(id, "/user/community_list/")
+      const commList = []
+      userCommunityResult.data.forEach(async (community) => {
+        const currentCommunityInfo = await getCommunityAxios(community.community, "/community/")
+        commList.push(currentCommunityInfo.data)
+      })
+      setCommunityList(commList)
       setLoading(false)
     }
 
@@ -125,6 +143,11 @@ function UserProfilePage() {
         <TabPane tab="Contacts" key="contact">
           <div className="tab-container">
             <ContactList editing={editing} contacts={contacts} setContacts={setContacts} />
+          </div>
+        </TabPane>
+        <TabPane tab="Communities" key="communities">
+          <div className="tab-container">
+            <CommunityList communityList={communityList} />
           </div>
         </TabPane>
         <TabPane tab="Followers" key="followers">

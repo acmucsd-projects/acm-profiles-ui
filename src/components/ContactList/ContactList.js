@@ -16,6 +16,7 @@ function ContactList(props) {
   const editing = props.editing
   const contacts = props.contacts
   const setContacts = props.setContacts
+  const isUser = Object.keys(contacts).includes("user")
   const [addContactModalVisible, setAddContactModalVisible] = useState(false)
   const setVisible = (v) => {
     setAddContactModalVisible(v)
@@ -40,7 +41,7 @@ function ContactList(props) {
           key={key}
           type={key}
           name={value}
-          editable={editing}
+          editable={key === "email" && isUser ? false : editing}
           updateSocial={(k, s) => updateSocial(k, s)}
           deleteSocial={(k) => deleteSocial(k)}
         />

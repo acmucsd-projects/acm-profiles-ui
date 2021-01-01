@@ -20,7 +20,7 @@ function handleCreate(
 ) {
   // THIS IS WHERE WE CALL THE API AND CREATE THE NEW COMMUNITY
   // eslint-disable-next-line no-console
-  //console.log(`Creating new contact with name: ${contactName}, and type: ${contactKey}`)
+  // console.log(`Creating new contact with name: ${contactName}, and type: ${contactKey}`)
   // reset state variables
   if (contactKey === "") {
     setContactName("")

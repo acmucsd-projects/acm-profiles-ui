@@ -13,18 +13,17 @@ function CommunityList(props) {
 
   const communityList = props.communityList
   const communityCardList = communityList.map((community) => {
-    const description = community.description != null ? community.description : "Undecided"
-    const imagesrc =
-      community.profile_pic != null
-        ? community.profile_pic
-        : "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/User_font_awesome.svg/1200px-User_font_awesome.svg.png"
     return (
       <CommunityCard
-        cid={community.cid}
-        communityName={community.communityName}
-        description={description}
-        numMembers={community.numMembers}
-        communityImageURL={imagesrc}
+        key={community.ucid}
+        cid={community.ucid}
+        communityName={community.title}
+        description={community.description}
+        communityImageURL={
+          community.profile_image_link != null
+            ? community.profile_image_link
+            : "https://www.freeiconspng.com/thumbs/community-icon/community-icon-21.png"
+        }
       />
     )
   })

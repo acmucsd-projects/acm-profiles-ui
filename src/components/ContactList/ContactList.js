@@ -50,7 +50,7 @@ function ContactList(props) {
   return (
     <div className="contact-list-container">
       <div className="contact-list-contacts-container">
-        {contactsArr.length ? contactsArr : <ContactCard key="empty-contact" />}
+        {contactsArr.length ? contactsArr : <ContactCard key="empty-contact" editable={false} />}
       </div>
       {editing && (
         <div className="contact-list-edit-button-container">

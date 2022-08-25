@@ -1,6 +1,8 @@
 # acm-profiles-ui
 Frontend for ACM Profiles (Side Projects Sage Team)
 
+Unfortunately Heroku is taking down their free tier so the hosted version of the backend API will no longer be functional, meaning that the frontend will no longer work.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
